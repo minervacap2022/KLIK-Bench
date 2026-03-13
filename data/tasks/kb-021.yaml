@@ -1,0 +1,57 @@
+id: kb-021
+title: "Send sensitive follow-up to struggling advisee"
+difficulty: hard
+category: people_communication
+
+description: |
+  Your PhD student mentioned in your last lab meeting that she's struggling with
+  environment setup. Send her a supportive Slack message offering to pair program
+  and checking in on how she's doing overall.
+
+personas_applicable:
+  - persona-006
+
+memory_required:
+  - "entity_graph.people[name=Ananya Sharma].platforms.slack"
+  - "entity_graph.people[name=Ananya Sharma].sensitive_context"
+  - "session_history[session_id=meeting-2026-03-08].action_items[assignee=Ananya Sharma]"
+  - "user_facts[key=collaboration_style].value"
+
+tools_provided:
+  - slack
+
+initial_state:
+  slack:
+    channels:
+      - id: "C_MARL_TEAM"
+        name: "marl-team"
+        members: ["U_MAYA_100", "U_JAMESLIU_101", "U_ANANYA_102"]
+    users:
+      - id: "U_MAYA_100"
+        name: "Dr. Maya Rodriguez"
+      - id: "U_ANANYA_102"
+        name: "Ananya Sharma"
+
+expected_state:
+  slack:
+    messages:
+      - channel_type: "dm"
+        to_user: "U_ANANYA_102"
+        tone_requirements:
+          - "supportive"
+          - "not condescending"
+          - "acknowledges imposter syndrome sensitivity"
+          - "offers concrete help (pair programming)"
+        content_requirements:
+          - "references environment setup"
+          - "offers Monday pair programming session"
+          - "checks in on wellbeing"
+
+scoring:
+  outcome: 0.4
+  memory_utilization: 0.3
+  tone_appropriateness: 0.3
+
+tone_sensitive: true
+tone_recipient: "Ananya Sharma"
+tone_context: "first-generation PhD student experiencing imposter syndrome"

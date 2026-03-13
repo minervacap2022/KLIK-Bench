@@ -1,0 +1,141 @@
+id: persona-006
+name: "Dr. Maya Rodriguez"
+role: "Principal Research Scientist"
+organization: "DeepMind Research"
+
+preferences:
+  task_management: linear
+  documentation: notion
+  communication: slack
+  file_storage: google_drive
+  calendar: google_calendar
+  email: gmail
+  code: github
+  timezone: "Europe/London"
+  language: "en"
+  meeting_notes_style: "academic structure with hypotheses, methods, results, next steps"
+  notification_preference: "Slack for collaborator messages, email for paper submissions"
+
+user_facts:
+  - key: "research_focus"
+    value: "Multi-agent reinforcement learning and cooperative AI"
+    confidence: 0.98
+  - key: "publication_deadline"
+    value: "NeurIPS 2026 submission deadline May 23rd"
+    confidence: 0.97
+  - key: "lab_meeting"
+    value: "Thursdays at 2pm UK time, alternating paper discussions and project updates"
+    confidence: 0.96
+  - key: "collaboration_style"
+    value: "Prefers asynchronous feedback on drafts via Google Docs comments"
+    confidence: 0.94
+  - key: "experiment_tracking"
+    value: "All experiments logged to Weights & Biases project 'marl-2026'"
+    confidence: 0.97
+  - key: "code_review_expectation"
+    value: "Research code must have reproducibility checklist before merging"
+    confidence: 0.93
+  - key: "data_sensitivity"
+    value: "Some projects involve confidential partner data, never discuss in public channels"
+    confidence: 0.99
+
+entity_graph:
+  people:
+    - name: "Dr. James Liu"
+      role: "Research Scientist"
+      relationship: "primary collaborator on MARL paper"
+      platforms:
+        slack: "U_JAMESLIU_101"
+        github: "jliu-research"
+        notion: "james.liu"
+      sensitive_context: null
+    - name: "Ananya Sharma"
+      role: "PhD Student"
+      relationship: "advisee, first year, needs extra guidance"
+      platforms:
+        slack: "U_ANANYA_102"
+        github: "asharma-phd"
+        notion: "ananya.sharma"
+      sensitive_context: "first-generation PhD student, experiencing imposter syndrome"
+    - name: "Dr. Thomas Weber"
+      role: "Senior Research Director"
+      relationship: "manager, approves publication submissions"
+      platforms:
+        slack: "U_TWEBER_103"
+        email: "thomas.weber@deepmind.com"
+      sensitive_context: null
+    - name: "Prof. Sarah Mitchell"
+      role: "University Collaborator"
+      relationship: "external collaborator at MIT, co-author"
+      platforms:
+        email: "s.mitchell@mit.edu"
+        github: "smitchell-mit"
+      sensitive_context: null
+    - name: "Raj Patel"
+      role: "Research Engineer"
+      relationship: "infrastructure support, manages compute cluster"
+      platforms:
+        slack: "U_RAJPATEL_104"
+        github: "rpatel-infra"
+      sensitive_context: "recently had family emergency, reduced availability"
+    - name: "Dr. Elena Volkov"
+      role: "Research Scientist"
+      relationship: "competitor at OpenAI, careful with information sharing"
+      platforms:
+        email: "evolkov@openai.com"
+      sensitive_context: "external contact, do not share unpublished results"
+
+  projects:
+    - name: "MARL-Cooperation"
+      status: "active"
+      priority: "high"
+      description: "Multi-agent cooperation in partial observability"
+      team: ["Dr. James Liu", "Ananya Sharma"]
+      platform_refs:
+        linear: "MARL-COOP"
+        github: "deepmind/marl-cooperation"
+    - name: "Emergent-Communication"
+      status: "active"
+      priority: "medium"
+      description: "Language emergence in multi-agent games"
+      team: ["Prof. Sarah Mitchell"]
+      platform_refs:
+        linear: "EMERG-COMM"
+        github: "deepmind/emergent-comm"
+
+session_history:
+  - session_id: "meeting-2026-03-08"
+    date: "2026-03-08"
+    title: "Lab Meeting - MARL Paper Progress"
+    summary: |
+      Discussed experiment results showing 23% improvement in cooperation metrics.
+      James to finalize ablation study by March 15.
+      Ananya struggling with environment setup, Maya to pair program on Monday.
+    participants: ["Dr. Maya Rodriguez", "Dr. James Liu", "Ananya Sharma"]
+    decisions:
+      - "Target NeurIPS 2026 main track submission"
+      - "Need 3 more baseline comparisons before submission"
+      - "Internal deadline: draft complete by May 1"
+    action_items:
+      - assignee: "Dr. James Liu"
+        task: "Complete ablation study"
+        due: "2026-03-15"
+      - assignee: "Ananya Sharma"
+        task: "Fix environment reproducibility issues"
+        due: "2026-03-12"
+
+  - session_id: "meeting-2026-03-01"
+    date: "2026-03-01"
+    title: "Research Planning Q2"
+    summary: |
+      Thomas approved compute budget increase for MARL experiments.
+      Discussed potential industry collaboration with automotive partner (confidential).
+      Raj mentioned compute cluster maintenance scheduled for March 20-22.
+    participants: ["Dr. Maya Rodriguez", "Dr. Thomas Weber", "Raj Patel"]
+    decisions:
+      - "Compute maintenance March 20-22, plan experiments around it"
+      - "Confidential project kickoff after NeurIPS submission"
+    action_items:
+      - assignee: "Raj Patel"
+        task: "Send compute maintenance notification to team"
+        due: "2026-03-10"

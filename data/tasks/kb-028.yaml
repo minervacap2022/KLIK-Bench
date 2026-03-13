@@ -1,0 +1,53 @@
+id: kb-028
+title: "Prepare CMO board report with correct deadline"
+difficulty: medium
+category: temporal_reasoning
+
+description: |
+  You need to create a reminder for the CMO board report that's due March 19
+  for review before the March 21 board presentation. The reminder should be
+  added to Outlook calendar and reference the expedited ER nurse hiring
+  decision that needs to be included.
+
+personas_applicable:
+  - persona-007
+
+memory_required:
+  - "user_facts[key=board_meeting].value"
+  - "session_history[session_id=meeting-2026-03-10].decisions"
+  - "session_history[session_id=meeting-2026-03-10].action_items[assignee=Dr. Rachel Thompson]"
+  - "preferences.calendar"
+
+tools_provided:
+  - outlook
+  - confluence
+
+initial_state:
+  outlook:
+    calendar:
+      - id: "cal-001"
+        title: "Board Meeting"
+        date: "2026-03-21"
+        time: "09:00"
+  confluence:
+    pages: {}
+
+expected_state:
+  outlook:
+    calendar:
+      - title_contains: ["CMO report", "board"]
+        date: "2026-03-19"
+        description_contains:
+          - "review deadline"
+          - "ER nurse hiring"
+  confluence:
+    assertions:
+      - type: "page_created"
+        optional: true
+        contains: ["CMO", "board report"]
+
+scoring:
+  outcome: 0.40
+  memory_utilization: 0.30
+  temporal_reasoning: 0.20
+  preference_adherence: 0.10

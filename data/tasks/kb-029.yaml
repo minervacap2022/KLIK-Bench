@@ -1,0 +1,54 @@
+id: kb-029
+title: "Create study group resources with correct context"
+difficulty: easy
+category: cross_platform
+
+description: |
+  Create a Notion page with distributed training resources for the study group
+  as agreed in the March 6 session. The page should reference the next session
+  on March 13 and include resources relevant to Marcus's math foundations struggle.
+
+personas_applicable:
+  - persona-008
+
+memory_required:
+  - "entity_graph.people[name=Marcus Johnson].platforms.notion"
+  - "entity_graph.projects[name=StudyGroup-ML].platform_refs.discord"
+  - "session_history[session_id=meeting-2026-03-06].summary"
+  - "session_history[session_id=meeting-2026-03-06].decisions"
+  - "preferences.documentation"
+
+tools_provided:
+  - notion
+  - discord
+
+initial_state:
+  notion:
+    pages: {}
+  discord:
+    servers:
+      - id: "ml-study-group"
+        name: "ML Study Group"
+        members: ["alexchen", "marcusj#7890", "priya_ml#4521"]
+
+expected_state:
+  notion:
+    pages:
+      - created: true
+        content_requirements:
+          - "distributed training"
+          - "March 13 session"
+          - "math foundations resources"
+  discord:
+    messages:
+      - channel: "ml-study-group"
+        optional: true
+        content_requirements:
+          - "Notion page"
+          - "resources"
+
+scoring:
+  outcome: 0.45
+  memory_utilization: 0.30
+  preference_adherence: 0.15
+  cross_platform_consistency: 0.10

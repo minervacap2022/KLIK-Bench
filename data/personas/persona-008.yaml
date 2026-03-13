@@ -1,0 +1,169 @@
+id: persona-008
+name: "Alex Chen"
+role: "Graduate Student"
+organization: "Stanford University, Computer Science"
+
+preferences:
+  task_management: notion
+  documentation: notion
+  communication: discord
+  file_storage: google_drive
+  calendar: google_calendar
+  email: gmail
+  code: github
+  timezone: "America/Los_Angeles"
+  language: "en"
+  meeting_notes_style: "bullet points with action items highlighted"
+  notification_preference: "Discord for study groups, email for professors"
+
+user_facts:
+  - key: "academic_status"
+    value: "Second-year MS student, considering PhD track"
+    confidence: 0.97
+  - key: "research_area"
+    value: "Machine learning systems, specifically distributed training"
+    confidence: 0.96
+  - key: "thesis_deadline"
+    value: "MS thesis proposal due April 15, 2026"
+    confidence: 0.98
+  - key: "ta_responsibilities"
+    value: "TA for CS229 Machine Learning, office hours Tuesdays 2-4pm"
+    confidence: 0.95
+  - key: "study_style"
+    value: "Prefers study groups over solo work, uses Pomodoro technique"
+    confidence: 0.92
+  - key: "financial_context"
+    value: "On partial scholarship, works part-time as research assistant"
+    confidence: 0.94
+  - key: "health_awareness"
+    value: "Managing anxiety, uses campus counseling services"
+    confidence: 0.91
+  - key: "career_goals"
+    value: "Interested in ML infrastructure roles at tech companies or continuing to PhD"
+    confidence: 0.93
+
+entity_graph:
+  people:
+    - name: "Prof. David Kim"
+      role: "Thesis Advisor"
+      relationship: "primary advisor, weekly 1:1 meetings"
+      platforms:
+        email: "dkim@stanford.edu"
+        slack: "U_DKIM_200"
+      sensitive_context: "strict about deadlines, prefers concise communication"
+    - name: "Priya Gupta"
+      role: "PhD Student"
+      relationship: "lab mate, informal mentor"
+      platforms:
+        discord: "priya_ml#4521"
+        slack: "U_PRIYA_201"
+        github: "priyagupta-ml"
+      sensitive_context: "going through visa renewal stress"
+    - name: "Marcus Johnson"
+      role: "Study Group Member"
+      relationship: "peer in CS229 study group"
+      platforms:
+        discord: "marcusj#7890"
+        notion: "marcus.j"
+      sensitive_context: null
+    - name: "Dr. Sarah Lin"
+      role: "CS229 Professor"
+      relationship: "course instructor, Alex is her TA"
+      platforms:
+        email: "sarahlin@stanford.edu"
+        canvas: "slin"
+      sensitive_context: "very busy, route non-urgent matters through email"
+    - name: "Jordan Rivera"
+      role: "Undergraduate Tutee"
+      relationship: "student in CS229 needing extra help"
+      platforms:
+        email: "jrivera@stanford.edu"
+        discord: "jordanr_cs#2345"
+      sensitive_context: "first-gen college student, struggling with imposter syndrome"
+    - name: "Dr. Emily Watson"
+      role: "Campus Counselor"
+      relationship: "bi-weekly counseling sessions"
+      platforms:
+        email: "ewatson@caps.stanford.edu"
+      sensitive_context: "mental health context, strictly confidential"
+
+  projects:
+    - name: "Thesis-DistributedML"
+      status: "active"
+      priority: "critical"
+      description: "MS thesis on efficient gradient compression for distributed training"
+      team: ["Prof. David Kim", "Priya Gupta"]
+      platform_refs:
+        notion: "Thesis-2026"
+        github: "alexchen/distributed-ml-thesis"
+    - name: "CS229-TA"
+      status: "active"
+      priority: "high"
+      description: "Teaching assistant duties for CS229"
+      team: ["Dr. Sarah Lin"]
+      platform_refs:
+        canvas: "CS229-Spring2026"
+    - name: "StudyGroup-ML"
+      status: "active"
+      priority: "medium"
+      description: "Weekly study sessions for advanced ML topics"
+      team: ["Marcus Johnson"]
+      platform_refs:
+        discord: "ml-study-group"
+
+session_history:
+  - session_id: "meeting-2026-03-11"
+    date: "2026-03-11"
+    title: "Thesis Advisor 1:1"
+    summary: |
+      Prof. Kim reviewed thesis outline draft. Concerns about related work section depth.
+      Need to add 3 more baseline comparisons by March 20.
+      Discussed potential summer internship at Google - Prof. Kim offered to write recommendation.
+    participants: ["Alex Chen", "Prof. David Kim"]
+    decisions:
+      - "Expand related work to include gradient compression papers from 2024-2025"
+      - "Schedule practice talk for April 1 with lab"
+      - "Prof. Kim to send internship recommendation by March 25"
+    action_items:
+      - assignee: "Alex Chen"
+        task: "Add baseline comparisons to thesis draft"
+        due: "2026-03-20"
+      - assignee: "Alex Chen"
+        task: "Send Prof. Kim internship details for recommendation"
+        due: "2026-03-15"
+
+  - session_id: "meeting-2026-03-09"
+    date: "2026-03-09"
+    title: "CS229 TA Sync"
+    summary: |
+      Reviewed grading progress for Problem Set 3. Alex behind on grading due to thesis work.
+      Dr. Lin understanding but needs grades by March 18.
+      Jordan Rivera flagged as needing additional support - schedule extra office hours.
+    participants: ["Alex Chen", "Dr. Sarah Lin"]
+    decisions:
+      - "Priority: complete PS3 grading by March 18"
+      - "Schedule one extra office hour session for struggling students"
+      - "Jordan to be referred to tutoring center if needed"
+    action_items:
+      - assignee: "Alex Chen"
+        task: "Complete PS3 grading"
+        due: "2026-03-18"
+      - assignee: "Alex Chen"
+        task: "Reach out to Jordan about extra help session"
+        due: "2026-03-13"
+
+  - session_id: "meeting-2026-03-06"
+    date: "2026-03-06"
+    title: "Study Group Session"
+    summary: |
+      Covered transformer architectures and attention mechanisms.
+      Marcus struggling with math foundations - recommended some resources.
+      Decided to focus next session on distributed training concepts.
+    participants: ["Alex Chen", "Marcus Johnson", "Priya Gupta"]
+    decisions:
+      - "Next session: March 13, focus on distributed training"
+      - "Create shared Notion page for study resources"
+    action_items:
+      - assignee: "Alex Chen"
+        task: "Create Notion page with distributed training resources"
+        due: "2026-03-12"

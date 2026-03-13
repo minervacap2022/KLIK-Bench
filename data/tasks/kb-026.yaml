@@ -1,0 +1,58 @@
+id: kb-026
+title: "Send async check-in to colleague with family emergency"
+difficulty: hard
+category: people_communication
+
+description: |
+  Jennifer Walsh is navigating a difficult family situation and prefers async
+  communication. You need to follow up on the expedited ER nurse hiring she's
+  leading, but must do so in a supportive, low-pressure way via Teams
+  (not a call or urgent message).
+
+personas_applicable:
+  - persona-007
+
+memory_required:
+  - "entity_graph.people[name=Jennifer Walsh].platforms.teams"
+  - "entity_graph.people[name=Jennifer Walsh].sensitive_context"
+  - "session_history[session_id=meeting-2026-03-10].action_items[assignee=Jennifer Walsh]"
+  - "user_facts[key=staff_morale].value"
+
+tools_provided:
+  - teams
+  - outlook
+
+initial_state:
+  teams:
+    users:
+      - id: "jennifer.walsh@healthfirst.org"
+        name: "Jennifer Walsh"
+    messages: []
+  outlook:
+    calendar: []
+
+expected_state:
+  teams:
+    messages:
+      - channel_type: "dm"
+        to_user: "jennifer.walsh@healthfirst.org"
+        tone_requirements:
+          - "supportive"
+          - "low-pressure"
+          - "acknowledges flexibility"
+          - "not urgent or demanding"
+        content_requirements:
+          - "references ER nurse hiring"
+          - "offers support or assistance"
+          - "does NOT pressure for immediate response"
+          - "async-friendly phrasing"
+
+scoring:
+  outcome: 0.30
+  memory_utilization: 0.25
+  tone_appropriateness: 0.35
+  preference_adherence: 0.10
+
+tone_sensitive: true
+tone_recipient: "Jennifer Walsh"
+tone_context: "navigating difficult family situation, prefers async communication"

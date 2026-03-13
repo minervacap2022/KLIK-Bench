@@ -1,0 +1,60 @@
+id: kb-024
+title: "Support struggling tutee with extra help session"
+difficulty: hard
+category: people_communication
+
+description: |
+  You need to reach out to Jordan Rivera about scheduling an extra help session.
+  Jordan is a first-gen college student experiencing imposter syndrome. Your message
+  should be supportive without being condescending, offer concrete help, and use
+  Discord (the student's preferred platform).
+
+personas_applicable:
+  - persona-008
+
+memory_required:
+  - "entity_graph.people[name=Jordan Rivera].platforms.discord"
+  - "entity_graph.people[name=Jordan Rivera].sensitive_context"
+  - "session_history[session_id=meeting-2026-03-09].action_items[assignee=Alex Chen]"
+  - "user_facts[key=ta_responsibilities].value"
+
+tools_provided:
+  - discord
+  - google_calendar
+
+initial_state:
+  discord:
+    servers:
+      - id: "S_CS229"
+        name: "CS229-Spring2026"
+        members: ["alexchen", "jordanr_cs#2345"]
+    users:
+      - id: "jordanr_cs#2345"
+        name: "Jordan Rivera"
+  google_calendar:
+    events: []
+
+expected_state:
+  discord:
+    messages:
+      - channel_type: "dm"
+        to_user: "jordanr_cs#2345"
+        tone_requirements:
+          - "supportive"
+          - "not condescending"
+          - "acknowledges challenges without labeling"
+          - "offers concrete help"
+        content_requirements:
+          - "offers extra help session"
+          - "mentions office hours or alternative time"
+          - "encouraging tone"
+
+scoring:
+  outcome: 0.35
+  memory_utilization: 0.25
+  tone_appropriateness: 0.30
+  preference_adherence: 0.10
+
+tone_sensitive: true
+tone_recipient: "Jordan Rivera"
+tone_context: "first-generation college student experiencing imposter syndrome"

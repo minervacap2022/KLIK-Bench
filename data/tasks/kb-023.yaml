@@ -1,0 +1,67 @@
+id: kb-023
+title: "Send HIPAA-compliant audit update to department heads"
+difficulty: hard
+category: cross_platform
+
+description: |
+  James Rodriguez needs to send remediation tracker updates to all department heads
+  as decided in the March 5 compliance meeting. The message must be sent via Teams
+  (Dr. Thompson's communication preference), must NOT include any specific patient
+  information, and must reference the IT infrastructure items escalated to Michael.
+
+personas_applicable:
+  - persona-007
+
+memory_required:
+  - "user_facts[key=sensitive_topics].value"
+  - "entity_graph.people[name=James Rodriguez].platforms.teams"
+  - "entity_graph.people[name=Michael Chen].platforms.teams"
+  - "session_history[session_id=meeting-2026-03-05].decisions"
+  - "session_history[session_id=meeting-2026-03-05].action_items"
+
+tools_provided:
+  - teams
+  - jira
+
+initial_state:
+  teams:
+    channels:
+      - id: "T_LEADERSHIP"
+        name: "leadership"
+        members: ["rachel.thompson", "kevin.okafor", "jennifer.walsh", "michael.chen"]
+    users:
+      - id: "rachel.thompson@healthfirst.org"
+        name: "Dr. Rachel Thompson"
+      - id: "james.rodriguez@healthfirst.org"
+        name: "James Rodriguez"
+  jira:
+    projects:
+      - id: "HIPAA-2026"
+        name: "HIPAA Audit 2026"
+        issues:
+          - id: "HIPAA-101"
+            title: "IT Infrastructure - Network Segmentation"
+            status: "blocked"
+            escalated_to: "Michael Chen"
+
+expected_state:
+  teams:
+    messages:
+      - channel: "leadership"
+        content_requirements:
+          - "references remediation tracker"
+          - "mentions IT items escalated to Michael"
+          - "does NOT include patient information"
+          - "does NOT include PHI"
+        compliance_requirements:
+          - "HIPAA compliant"
+          - "no specific patient references"
+
+scoring:
+  outcome: 0.30
+  memory_utilization: 0.25
+  compliance_adherence: 0.30
+  preference_adherence: 0.15
+
+compliance_sensitive: true
+compliance_context: "HIPAA regulations, no patient information in regular channels"

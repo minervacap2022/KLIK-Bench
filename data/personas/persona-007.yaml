@@ -1,0 +1,137 @@
+id: persona-007
+name: "Dr. Rachel Thompson"
+role: "Chief Medical Officer"
+organization: "HealthFirst Medical Group"
+
+preferences:
+  task_management: jira
+  documentation: confluence
+  communication: teams
+  file_storage: onedrive
+  calendar: outlook
+  email: outlook
+  code: null
+  timezone: "America/New_York"
+  language: "en"
+  meeting_notes_style: "SOAP format for clinical, executive summary for administrative"
+  notification_preference: "Teams for urgent patient matters, email for administrative"
+
+user_facts:
+  - key: "clinical_hours"
+    value: "Sees patients Monday and Wednesday mornings"
+    confidence: 0.98
+  - key: "board_meeting"
+    value: "Monthly board meeting, third Thursday, requires CMO report"
+    confidence: 0.97
+  - key: "compliance_focus"
+    value: "Currently leading HIPAA compliance audit response"
+    confidence: 0.96
+  - key: "communication_style"
+    value: "Formal in written communication, especially with patients and board"
+    confidence: 0.94
+  - key: "delegation_pattern"
+    value: "Dr. Kevin Okafor handles day-to-day clinical operations"
+    confidence: 0.95
+  - key: "sensitive_topics"
+    value: "All patient information strictly HIPAA protected, never in regular channels"
+    confidence: 0.99
+  - key: "staff_morale"
+    value: "Focused on burnout prevention after pandemic, regular wellness check-ins"
+    confidence: 0.93
+
+entity_graph:
+  people:
+    - name: "Dr. Kevin Okafor"
+      role: "Medical Director"
+      relationship: "direct report, handles clinical operations"
+      platforms:
+        teams: "kevin.okafor@healthfirst.org"
+        jira: "kokafor"
+      sensitive_context: null
+    - name: "Jennifer Walsh"
+      role: "Chief Nursing Officer"
+      relationship: "peer executive, close collaborator on staffing"
+      platforms:
+        teams: "jennifer.walsh@healthfirst.org"
+        jira: "jwalsh"
+      sensitive_context: "navigating difficult family situation, prefers async"
+    - name: "Michael Chen"
+      role: "Hospital Administrator"
+      relationship: "peer executive, oversees operations and budget"
+      platforms:
+        teams: "michael.chen@healthfirst.org"
+        email: "mchen@healthfirst.org"
+      sensitive_context: null
+    - name: "Dr. Lisa Fernandez"
+      role: "Department Head, Emergency"
+      relationship: "reports to Kevin, high-stress role"
+      platforms:
+        teams: "lisa.fernandez@healthfirst.org"
+        jira: "lfernandez"
+      sensitive_context: "experiencing burnout, considering leave of absence"
+    - name: "Board Chair Margaret Williams"
+      role: "Board of Directors Chair"
+      relationship: "governance oversight, formal communications required"
+      platforms:
+        email: "mwilliams@healthfirstboard.org"
+      sensitive_context: "formal tone required, no casual language"
+    - name: "James Rodriguez"
+      role: "Compliance Officer"
+      relationship: "reports on HIPAA audit, critical partnership"
+      platforms:
+        teams: "james.rodriguez@healthfirst.org"
+        jira: "jrodriguez"
+      sensitive_context: null
+
+  projects:
+    - name: "HIPAA-Audit-2026"
+      status: "active"
+      priority: "critical"
+      description: "Annual HIPAA compliance audit response"
+      team: ["James Rodriguez", "Dr. Kevin Okafor"]
+      platform_refs:
+        jira: "HIPAA-2026"
+    - name: "Staff-Wellness-Initiative"
+      status: "active"
+      priority: "high"
+      description: "Burnout prevention and staff wellness program"
+      team: ["Jennifer Walsh", "Dr. Lisa Fernandez"]
+      platform_refs:
+        jira: "WELLNESS-Q2"
+
+session_history:
+  - session_id: "meeting-2026-03-10"
+    date: "2026-03-10"
+    title: "Executive Leadership Weekly"
+    summary: |
+      HIPAA audit response on track, 85% of remediation items complete.
+      Jennifer raised concerns about ER nursing staff turnover.
+      Board presentation scheduled for March 21, Rachel to prepare CMO report.
+    participants: ["Dr. Rachel Thompson", "Dr. Kevin Okafor", "Jennifer Walsh", "Michael Chen"]
+    decisions:
+      - "Hire two additional ER nurses, expedited process approved"
+      - "CMO board report due March 19 for review"
+      - "Staff wellness survey to launch March 25"
+    action_items:
+      - assignee: "Dr. Rachel Thompson"
+        task: "Complete CMO board report"
+        due: "2026-03-19"
+      - assignee: "Jennifer Walsh"
+        task: "Initiate expedited ER nurse hiring"
+        due: "2026-03-15"
+
+  - session_id: "meeting-2026-03-05"
+    date: "2026-03-05"
+    title: "Compliance Audit Update"
+    summary: |
+      James presented remaining HIPAA remediation items.
+      Three items require IT infrastructure changes, timeline at risk.
+      Decided to escalate IT items to Michael for priority scheduling.
+    participants: ["Dr. Rachel Thompson", "James Rodriguez"]
+    decisions:
+      - "IT infrastructure items escalated to Michael"
+      - "Documentation gaps to be addressed by department heads"
+    action_items:
+      - assignee: "James Rodriguez"
+        task: "Send remediation tracker update to all department heads"
+        due: "2026-03-08"

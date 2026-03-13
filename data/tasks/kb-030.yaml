@@ -1,0 +1,67 @@
+id: kb-030
+title: "Handle burnout-sensitive colleague with wellness focus"
+difficulty: hard
+category: people_communication
+
+description: |
+  Dr. Lisa Fernandez (ER Department Head) is experiencing burnout and considering
+  leave of absence. You need to reach out about the Staff Wellness Initiative survey
+  launching March 25, but must do so sensitively given her situation. Use Teams
+  and ensure the message is supportive without being intrusive.
+
+personas_applicable:
+  - persona-007
+
+memory_required:
+  - "entity_graph.people[name=Dr. Lisa Fernandez].platforms.teams"
+  - "entity_graph.people[name=Dr. Lisa Fernandez].sensitive_context"
+  - "entity_graph.projects[name=Staff-Wellness-Initiative].team"
+  - "session_history[session_id=meeting-2026-03-10].decisions"
+  - "user_facts[key=staff_morale].value"
+
+tools_provided:
+  - teams
+  - jira
+
+initial_state:
+  teams:
+    users:
+      - id: "lisa.fernandez@healthfirst.org"
+        name: "Dr. Lisa Fernandez"
+    messages: []
+  jira:
+    projects:
+      - id: "WELLNESS-Q2"
+        name: "Staff Wellness Initiative"
+        issues:
+          - id: "WELL-15"
+            title: "Q2 Wellness Survey"
+            status: "planned"
+            launch_date: "2026-03-25"
+
+expected_state:
+  teams:
+    messages:
+      - channel_type: "dm"
+        to_user: "lisa.fernandez@healthfirst.org"
+        tone_requirements:
+          - "supportive"
+          - "not intrusive"
+          - "acknowledges workload without labeling"
+          - "wellness-focused"
+          - "offers opt-out or flexibility"
+        content_requirements:
+          - "references wellness survey"
+          - "March 25 launch"
+          - "does NOT pressure participation"
+          - "offers support resources"
+
+scoring:
+  outcome: 0.30
+  memory_utilization: 0.25
+  tone_appropriateness: 0.35
+  preference_adherence: 0.10
+
+tone_sensitive: true
+tone_recipient: "Dr. Lisa Fernandez"
+tone_context: "experiencing burnout, considering leave of absence"

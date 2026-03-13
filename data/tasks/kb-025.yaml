@@ -1,0 +1,48 @@
+id: kb-025
+title: "Request internship recommendation with correct details"
+difficulty: medium
+category: temporal_reasoning
+
+description: |
+  You need to send Prof. David Kim the details for your internship recommendation
+  as discussed in your March 11 advisor meeting. The email should reference the
+  Google summer internship opportunity and include the March 25 deadline he
+  mentioned for sending the recommendation.
+
+personas_applicable:
+  - persona-008
+
+memory_required:
+  - "entity_graph.people[name=Prof. David Kim].platforms.email"
+  - "entity_graph.people[name=Prof. David Kim].sensitive_context"
+  - "session_history[session_id=meeting-2026-03-11].summary"
+  - "session_history[session_id=meeting-2026-03-11].action_items"
+  - "user_facts[key=career_goals].value"
+
+tools_provided:
+  - gmail
+
+initial_state:
+  gmail:
+    inbox: []
+    sent: []
+
+expected_state:
+  gmail:
+    sent:
+      - to: "dkim@stanford.edu"
+        content_requirements:
+          - "references Google internship"
+          - "mentions March 25 deadline"
+          - "includes relevant details for recommendation"
+          - "formal but not overly stiff tone"
+        tone_requirements:
+          - "respectful"
+          - "concise"
+          - "professional"
+
+scoring:
+  outcome: 0.40
+  memory_utilization: 0.30
+  temporal_reasoning: 0.20
+  tone_appropriateness: 0.10

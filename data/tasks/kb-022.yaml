@@ -1,0 +1,72 @@
+id: kb-022
+title: "Coordinate experiment schedule around compute maintenance"
+difficulty: hard
+category: temporal_reasoning
+
+description: |
+  Your research team needs to plan experiment runs. Raj mentioned the compute cluster
+  maintenance is scheduled for March 20-22. You need to notify James Liu to complete
+  his ablation study before the maintenance window and adjust the Linear project
+  timeline accordingly.
+
+personas_applicable:
+  - persona-006
+
+memory_required:
+  - "entity_graph.people[name=Raj Patel].sensitive_context"
+  - "entity_graph.people[name=Dr. James Liu].platforms.slack"
+  - "session_history[session_id=meeting-2026-03-01].decisions"
+  - "session_history[session_id=meeting-2026-03-08].action_items[assignee=Dr. James Liu]"
+  - "user_facts[key=experiment_tracking].value"
+
+tools_provided:
+  - slack
+  - linear
+
+initial_state:
+  slack:
+    channels:
+      - id: "C_MARL_TEAM"
+        name: "marl-team"
+        members: ["U_MAYA_100", "U_JAMESLIU_101", "U_RAJPATEL_104"]
+    users:
+      - id: "U_MAYA_100"
+        name: "Dr. Maya Rodriguez"
+      - id: "U_JAMESLIU_101"
+        name: "Dr. James Liu"
+      - id: "U_RAJPATEL_104"
+        name: "Raj Patel"
+  linear:
+    projects:
+      - id: "MARL-COOP"
+        name: "MARL-Cooperation"
+        issues:
+          - id: "MARL-45"
+            title: "Ablation study"
+            assignee: "jliu-research"
+            due: "2026-03-15"
+            status: "in_progress"
+
+expected_state:
+  slack:
+    messages:
+      - channel_type: "dm"
+        to_user: "U_JAMESLIU_101"
+        content_requirements:
+          - "references compute maintenance March 20-22"
+          - "mentions ablation study deadline March 15"
+          - "suggests completing experiments before maintenance"
+  linear:
+    issues:
+      - id: "MARL-45"
+        comment_added: true
+        comment_contains: ["maintenance window", "March 20"]
+
+scoring:
+  outcome: 0.35
+  memory_utilization: 0.30
+  temporal_reasoning: 0.25
+  preference_adherence: 0.10
+
+temporal_sensitive: true
+temporal_context: "coordinate deadlines around scheduled infrastructure maintenance"
