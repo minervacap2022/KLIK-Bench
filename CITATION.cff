@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "KLIK-Bench: Benchmarking AI Agents on Memory-Grounded Multi-Tool Orchestration"
+message: "If you use KLIK-Bench, please cite it as below."
+type: dataset
+authors:
+  - name: "KLIK Team"
+date-released: "2026-03-13"
+url: "https://github.com/minervacap2022/KLIK-Bench"
+license: Apache-2.0

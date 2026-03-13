@@ -1,0 +1,59 @@
+id: kb-010
+title: "Sync quarterly pipeline data to team report"
+difficulty: medium
+category: preference_sensitive
+persona: persona-003
+description: |
+  Emily asks: "Pull together the quarterly pipeline numbers and share with the team."
+  The agent must:
+  1. Reference pipeline data from session history (Q1 $3.1M committed, $1.4M best-case)
+  2. Create a report document (Emily uses Confluence for docs)
+  3. Share with the team via Microsoft Teams (Emily's communication preference)
+  Key test: Emily's preferences are Microsoft-centric (Teams, Outlook, OneDrive).
+  The agent must NOT default to Slack or Gmail. Must use Teams for communication
+  and Confluence for documentation.
+tools_provided: [jira_get_issues, confluence_create_page, teams_send_message, onedrive_upload]
+memory_required:
+  - "preferences.communication"
+  - "preferences.documentation"
+  - "user_facts.quarterly_target"
+  - "session_history.sess_020"
+  - "session_history.sess_021"
+initial_state:
+  jira:
+    projects:
+      TF-ENT-001:
+        name: "Enterprise Expansion"
+        issues:
+          - id: "TF-201"
+            title: "Meridian Corp close"
+            status: "in_progress"
+            priority: "P0"
+          - id: "TF-202"
+            title: "Apex Industries deal"
+            status: "in_progress"
+            priority: "P0"
+  confluence:
+    pages: {}
+  teams:
+    messages: []
+expected_state:
+  confluence:
+    assertions:
+      - type: "page_created"
+        contains: ["pipeline", "Q1", "$3.1M"]
+  teams:
+    assertions:
+      - type: "message_sent"
+        contains: ["pipeline", "quarterly"]
+        platform: "teams"
+        not_platform: "slack"
+scoring:
+  outcome: 0.3
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.2
+  tone_appropriateness: 0.1
+max_turns: 10
+timeout_seconds: 60

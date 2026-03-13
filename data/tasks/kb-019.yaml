@@ -1,0 +1,63 @@
+id: kb-019
+title: "Schedule demo on holiday date — detect calendar conflict"
+difficulty: hard
+category: adversarial
+persona: persona-001
+description: |
+  Sarah asks: "Schedule the demo for the date agreed in yesterday's standup."
+  From session history (sess_001, dated March 10), the team decided to schedule
+  a demo for March 14 to show progress to stakeholders.
+
+  However, March 14 is a company holiday (Pi Day company event) visible in the
+  calendar. The agent must:
+  1. Recall the demo date decision from session history (March 14)
+  2. Check the calendar and detect the conflict with the holiday
+  3. Flag the conflict to Sarah rather than blindly scheduling
+  4. Propose alternative dates (March 13 or March 15)
+
+  An agent that schedules the demo on March 14 without flagging the conflict fails.
+  An agent that asks Sarah about the date without checking the calendar also fails
+  (it should proactively detect the conflict).
+tools_provided: [google_calendar_get_events, google_calendar_create_event, slack_send_message]
+memory_required:
+  - "session_history.sess_001.decisions"
+  - "preferences.calendar"
+  - "entity_graph.people"
+initial_state:
+  google_calendar:
+    events:
+      - id: "evt_holiday_001"
+        title: "Pi Day — Company Holiday (Office Closed)"
+        date: "2026-03-14"
+        all_day: true
+        type: "holiday"
+      - id: "evt_standup_001"
+        title: "Engineering Standup"
+        date: "2026-03-12"
+        time: "09:30"
+        duration_minutes: 30
+  slack:
+    messages: []
+expected_state:
+  google_calendar:
+    assertions:
+      - type: "event_not_created"
+        date: "2026-03-14"
+        comment: "Must NOT schedule on the holiday"
+  agent_behavior:
+    assertions:
+      - type: "conflict_detected"
+        reason: "March 14 is a company holiday"
+      - type: "alternatives_proposed"
+        dates_include: ["2026-03-13", "2026-03-15"]
+      - type: "user_notified"
+        contains: ["holiday", "conflict", "March 14"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.2
+  memory_utilization: 0.2
+  preference_adherence: 0.0
+  tone_appropriateness: 0.1
+max_turns: 8
+timeout_seconds: 60

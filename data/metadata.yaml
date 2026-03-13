@@ -1,0 +1,56 @@
+name: "KLIK-Bench"
+version: "0.1.0"
+description: "Benchmark dataset for evaluating AI meeting agents on cross-platform task execution, memory grounding, preference adherence, and tone sensitivity"
+created: "2026-03-12"
+
+structure:
+  personas_dir: "personas/"
+  tasks_dir: "tasks/"
+  persona_count: 5
+  task_count: 20
+
+persona_archetypes:
+  - id: persona-001
+    archetype: "Engineering Lead"
+    name: "Sarah Chen"
+    org: "Nexus Technologies"
+  - id: persona-002
+    archetype: "Product Manager"
+    name: "James Rivera"
+    org: "CloudSync Inc"
+  - id: persona-003
+    archetype: "Sales Director"
+    name: "Emily Watson"
+    org: "TechForward"
+  - id: persona-004
+    archetype: "Founder/CEO"
+    name: "Michael Zhang"
+    org: "DataVault AI"
+  - id: persona-005
+    archetype: "Data Scientist"
+    name: "Aisha Patel"
+    org: "QuantumMetrics"
+
+task_distribution:
+  easy: 5       # kb-001 to kb-005
+  medium: 8     # kb-006 to kb-013
+  hard: 5       # kb-014 to kb-018
+  adversarial: 2 # kb-019 to kb-020
+
+categories:
+  - cross_platform_sync
+  - memory_grounded
+  - people_communication
+  - knowledge_retrieval
+  - preference_sensitive
+  - multi_session
+  - adversarial
+  - composite
+
+scoring_dimensions:
+  outcome: "Did the agent achieve the intended result?"
+  efficiency: "How many turns/API calls were used relative to optimal?"
+  recovery: "Did the agent handle errors or missing data gracefully?"
+  memory_utilization: "Did the agent leverage session history and user facts?"
+  preference_adherence: "Did the agent respect platform and communication preferences?"
+  tone_appropriateness: "Was the agent's communication tone suitable for the context?"

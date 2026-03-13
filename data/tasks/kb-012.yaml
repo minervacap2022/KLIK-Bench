@@ -1,0 +1,48 @@
+id: kb-012
+title: "Escalate blocking bug from standup discussion"
+difficulty: medium
+category: multi_session
+persona: persona-002
+description: |
+  James asks: "Escalate the auth SDK blocker Rachel mentioned."
+  The agent must:
+  1. Recall from session history (sess_011) that Rachel flagged a blocking
+     dependency on the new auth SDK for Mobile App v2
+  2. Create a high-priority blocking bug in Asana under Mobile App v2 project
+  3. Notify Rachel and the team on Slack about the escalation
+  Must correctly link the blocker to the Mobile App v2 project, not Dashboard Redesign.
+tools_provided: [asana_create_task, asana_get_project, slack_send_message]
+memory_required:
+  - "session_history.sess_011.decisions"
+  - "session_history.sess_011.summary"
+  - "entity_graph.projects.mobile_app_v2"
+  - "entity_graph.people.rachel_torres"
+initial_state:
+  asana:
+    projects:
+      PROJ_MOB_002:
+        name: "Mobile App v2"
+        tasks: []
+  slack:
+    messages: []
+expected_state:
+  asana:
+    assertions:
+      - type: "task_created"
+        project: "PROJ_MOB_002"
+        title_contains: ["auth SDK", "blocker"]
+        priority: "high"
+  slack:
+    assertions:
+      - type: "message_sent"
+        to_includes: "U_RACHELT_010"
+        contains: ["auth SDK", "blocker", "escalat"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 10
+timeout_seconds: 60

@@ -1,0 +1,50 @@
+id: kb-008
+title: "Prepare board meeting agenda from recent decisions"
+difficulty: medium
+category: multi_session
+persona: persona-004
+description: |
+  Michael asks: "Draft the board meeting agenda based on our recent discussions."
+  The agent must:
+  1. Synthesize decisions from both session histories (leadership sync + investor prep)
+  2. Create a structured board meeting agenda in Notion
+  3. Email the draft agenda to the board (Richard Huang) via Gmail
+  Must reference: Series B progress, v3 launch timeline adjustments, narrative pivot
+  to "AI compliance automation," and the 3 ARR growth scenarios.
+tools_provided: [notion_create_page, gmail_send_email, gmail_draft_email]
+memory_required:
+  - "preferences.documentation"
+  - "preferences.email"
+  - "user_facts.board_meeting_schedule"
+  - "user_facts.key_metrics"
+  - "session_history.sess_030"
+  - "session_history.sess_031"
+  - "entity_graph.people.richard_huang"
+initial_state:
+  notion:
+    pages:
+      page_series_b_001:
+        title: "Series B Prep"
+        children: []
+  gmail:
+    drafts: []
+    sent: []
+expected_state:
+  notion:
+    assertions:
+      - type: "page_created"
+        contains: ["board", "agenda", "Series B", "compliance automation"]
+  gmail:
+    assertions:
+      - type: "email_sent_or_drafted"
+        to: "richard.huang@sequoiacap.com"
+        contains: ["board", "agenda", "April 8"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 10
+timeout_seconds: 60

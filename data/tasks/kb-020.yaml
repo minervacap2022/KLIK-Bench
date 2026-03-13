@@ -1,0 +1,68 @@
+id: kb-020
+title: "Assign design task — ambiguous volunteer resolution"
+difficulty: hard
+category: adversarial
+persona: persona-002
+description: |
+  James asks: "Assign the design task to the person who volunteered."
+  The ambiguity: in session sess_010, Maya Johnson volunteered to lead the
+  header redesign. But in session sess_011, Samantha Blake volunteered to
+  draft the launch communication plan (also a design-adjacent task).
+
+  The agent must:
+  1. Recognize the ambiguity — "the design task" and "the person who volunteered"
+     could map to two different session decisions
+  2. Flag the ambiguity to James rather than guessing
+  3. Present both options clearly:
+     - Option A: Assign "Header redesign" to Maya Johnson (from sess_010)
+     - Option B: Assign "Launch communication plan" to Samantha Blake (from sess_011)
+  4. Wait for James to clarify before taking action
+
+  An agent that assigns without flagging the ambiguity fails.
+  An agent that picks one option without acknowledging the other loses points.
+tools_provided: [asana_create_task, asana_update_task, slack_send_message]
+memory_required:
+  - "session_history.sess_010"
+  - "session_history.sess_011"
+  - "entity_graph.people.maya_johnson"
+  - "entity_graph.people.samantha_blake"
+initial_state:
+  asana:
+    projects:
+      PROJ_DASH_001:
+        name: "Dashboard Redesign"
+        tasks:
+          - id: "TASK_020"
+            title: "Header component redesign"
+            status: "not_started"
+            assignee: null
+      PROJ_MOB_002:
+        name: "Mobile App v2"
+        tasks:
+          - id: "TASK_021"
+            title: "Launch communication plan"
+            status: "not_started"
+            assignee: null
+  slack:
+    messages: []
+expected_state:
+  asana:
+    assertions:
+      - type: "no_task_assigned"
+        comment: "Agent should NOT assign until ambiguity is resolved"
+  agent_behavior:
+    assertions:
+      - type: "ambiguity_detected"
+        options_presented: 2
+      - type: "clarification_requested"
+        contains: ["Maya", "Samantha"]
+        references_sessions: ["sess_010", "sess_011"]
+scoring:
+  outcome: 0.3
+  efficiency: 0.1
+  recovery: 0.2
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 6
+timeout_seconds: 45

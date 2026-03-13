@@ -1,0 +1,40 @@
+id: kb-001
+title: "Send standup reminder to Alex via Slack"
+difficulty: easy
+category: people_communication
+persona: persona-001
+description: |
+  Sarah asks: "Remind Alex about tomorrow's standup."
+  The agent must resolve "Alex" to Alex Kim using the persona's entity graph,
+  determine the correct Slack user ID (U_ALEXKIM_001), and send a Slack DM
+  reminding him about the Tuesday/Thursday 9:30 AM PT standup.
+  The agent must use Slack (Sarah's communication preference), not email.
+tools_provided: [slack_send_message, slack_resolve_user]
+memory_required:
+  - "preferences.communication"
+  - "user_facts.standup_day"
+  - "entity_graph.people.alex_kim.platforms.slack"
+initial_state:
+  slack:
+    users:
+      U_ALEXKIM_001:
+        name: "Alex Kim"
+        status: "active"
+    channels: []
+    messages: []
+expected_state:
+  slack:
+    assertions:
+      - type: "message_sent"
+        to: "U_ALEXKIM_001"
+        contains: ["standup", "9:30"]
+        channel_type: "dm"
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 5
+timeout_seconds: 30

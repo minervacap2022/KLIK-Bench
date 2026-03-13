@@ -1,0 +1,109 @@
+id: persona-005
+name: "Aisha Patel"
+role: "Lead Data Scientist"
+organization: "QuantumMetrics"
+
+preferences:
+  task_management: jira
+  documentation: notion
+  communication: slack
+  file_storage: google_drive
+  calendar: google_calendar
+  email: gmail
+  code: github
+  timezone: "Europe/London"
+  language: "en"
+  meeting_notes_style: "technical log with experiment IDs, metrics, and reproducibility notes"
+  notification_preference: "Slack for experiment alerts, Gmail for external collaborations"
+
+user_facts:
+  - key: "model_training_schedule"
+    value: "GPU cluster available Tuesday and Thursday nights (off-peak), batch jobs on weekends"
+    confidence: 0.96
+  - key: "data_access_permissions"
+    value: "Level 3 clearance — access to anonymized PII datasets, requires audit log"
+    confidence: 0.97
+  - key: "publication_targets"
+    value: "2 papers by Q3 2026 — anomaly detection (NeurIPS) and churn prediction (KDD)"
+    confidence: 0.93
+  - key: "preferred_stack"
+    value: "PyTorch, Weights & Biases for experiment tracking, DVC for data versioning"
+    confidence: 0.95
+  - key: "meeting_cadence"
+    value: "Research standup Monday 10 AM GMT, model review Thursday 3 PM GMT"
+    confidence: 0.96
+
+entity_graph:
+  people:
+    - name: "Raj Krishnan"
+      role: "ML Engineer"
+      relationship: "primary implementation partner, handles model deployment"
+      platforms:
+        slack: "U_RAJK_040"
+        jira: "raj.krishnan"
+        github: "rajk-qm"
+    - name: "Sophie Turner"
+      role: "ML Engineer"
+      relationship: "works on feature engineering and data pipelines"
+      platforms:
+        slack: "U_SOPHIET_041"
+        jira: "sophie.turner"
+        github: "sturner-ml"
+    - name: "Liam O'Connor"
+      role: "Data Engineer"
+      relationship: "manages data infrastructure and ETL pipelines"
+      platforms:
+        slack: "U_LIAMO_042"
+        jira: "liam.oconnor"
+        github: "loconnor-de"
+    - name: "Dr. Helen Park"
+      role: "Research Director"
+      relationship: "supervisor, co-author on papers, guides research direction"
+      platforms:
+        slack: "U_HELENP_043"
+        jira: "helen.park"
+        email: "helen.park@quantummetrics.com"
+
+  projects:
+    - name: "Anomaly Detection v2"
+      status: "in_progress"
+      priority: "P0"
+      owner: "aisha.patel"
+      team: ["raj.krishnan", "sophie.turner", "liam.oconnor"]
+      tools:
+        jira: "QM-AD-001"
+        notion: "page_anomaly_v2_001"
+        github: "quantummetrics/anomaly-detection-v2"
+    - name: "Customer Churn Model"
+      status: "in_progress"
+      priority: "P1"
+      owner: "aisha.patel"
+      team: ["raj.krishnan", "sophie.turner"]
+      tools:
+        jira: "QM-CC-002"
+        notion: "page_churn_model_002"
+        github: "quantummetrics/churn-prediction"
+
+  organizations:
+    - name: "QuantumMetrics"
+      departments: ["Data Science", "Data Engineering", "Research", "Product"]
+
+session_history:
+  - session_id: "sess_040"
+    date: "2026-03-09"
+    summary: "Research standup — Anomaly Detection v2 experiment results. New transformer-based architecture achieved 94.2% F1 score (up from 91.8% baseline). Raj identified memory leak in inference pipeline causing OOM errors on large batches. Sophie proposed feature ablation study to identify which temporal features drive the improvement. Helen suggested submitting to NeurIPS workshop track as backup."
+    decisions:
+      - "Raj to fix memory leak by Wednesday"
+      - "Sophie to run feature ablation study this week"
+      - "Aisha to draft NeurIPS submission outline by Friday"
+      - "Target full paper submission for NeurIPS main track, workshop as fallback"
+    participants: ["Aisha Patel", "Raj Krishnan", "Sophie Turner", "Dr. Helen Park"]
+  - session_id: "sess_041"
+    date: "2026-03-11"
+    summary: "Model review — Customer Churn Model evaluation. Current model achieves 0.87 AUC-ROC but precision at top decile dropped to 0.72 after recent data refresh. Liam discovered data drift in the payment features due to pricing plan migration. Raj proposed retraining with a sliding window approach. Helen raised concern about the model being used in production while metrics are degraded."
+    decisions:
+      - "Pause churn model production scoring until retrained"
+      - "Liam to investigate payment feature drift and provide clean dataset"
+      - "Raj to implement sliding window retraining pipeline"
+      - "Aisha to notify product team about temporary scoring pause"
+    participants: ["Aisha Patel", "Raj Krishnan", "Liam O'Connor", "Dr. Helen Park"]

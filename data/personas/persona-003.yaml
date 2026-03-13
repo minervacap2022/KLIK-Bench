@@ -1,0 +1,110 @@
+id: persona-003
+name: "Emily Watson"
+role: "Sales Director"
+organization: "TechForward"
+
+preferences:
+  task_management: jira
+  documentation: confluence
+  communication: teams
+  file_storage: onedrive
+  calendar: outlook
+  email: outlook
+  code: github
+  timezone: "America/Chicago"
+  language: "en"
+  meeting_notes_style: "deal-focused summaries with pipeline impact and next steps"
+  notification_preference: "Teams for deal alerts, Outlook for scheduling, Jira for task tracking"
+
+user_facts:
+  - key: "quarterly_target"
+    value: "$4.2M ARR for Q1 2026, currently at $3.1M (74% attainment)"
+    confidence: 0.96
+  - key: "territory"
+    value: "Enterprise accounts, Midwest and East Coast"
+    confidence: 0.98
+  - key: "crm_preference"
+    value: "Salesforce for pipeline, Jira for internal task tracking"
+    confidence: 0.95
+  - key: "reporting_cadence"
+    value: "Weekly pipeline review Monday 10 AM CT, monthly forecast call first Friday"
+    confidence: 0.97
+  - key: "deal_stage_methodology"
+    value: "MEDDPICC qualification framework"
+    confidence: 0.93
+  - key: "commission_structure"
+    value: "2x accelerator above 100% quota attainment"
+    confidence: 0.91
+
+entity_graph:
+  people:
+    - name: "Tom Bradley"
+      role: "Senior Account Executive"
+      relationship: "top performer, handles largest enterprise accounts"
+      platforms:
+        teams: "U_TOMB_020"
+        jira: "tom.bradley"
+        email: "tom.bradley@techforward.com"
+    - name: "Nicole Foster"
+      role: "Account Executive"
+      relationship: "direct report, ramping on enterprise segment"
+      platforms:
+        teams: "U_NICOLEF_021"
+        jira: "nicole.foster"
+        email: "nicole.foster@techforward.com"
+    - name: "Derek Simmons"
+      role: "Sales Operations Manager"
+      relationship: "manages CRM, reporting, and deal desk"
+      platforms:
+        teams: "U_DEREKS_022"
+        jira: "derek.simmons"
+        email: "derek.simmons@techforward.com"
+    - name: "Catherine Hall"
+      role: "Customer Success Manager"
+      relationship: "handles renewals and expansion opportunities"
+      platforms:
+        teams: "U_CATHH_023"
+        jira: "catherine.hall"
+        email: "catherine.hall@techforward.com"
+
+  projects:
+    - name: "Enterprise Expansion"
+      status: "in_progress"
+      priority: "P0"
+      owner: "emily.watson"
+      team: ["tom.bradley", "nicole.foster", "derek.simmons"]
+      tools:
+        jira: "TF-ENT-001"
+        confluence: "page_ent_expansion_001"
+    - name: "Partner Channel"
+      status: "planning"
+      priority: "P1"
+      owner: "emily.watson"
+      team: ["tom.bradley", "catherine.hall"]
+      tools:
+        jira: "TF-PART-002"
+        confluence: "page_partner_channel_002"
+
+  organizations:
+    - name: "TechForward"
+      departments: ["Sales", "Sales Operations", "Customer Success", "Marketing"]
+
+session_history:
+  - session_id: "sess_020"
+    date: "2026-03-09"
+    summary: "Weekly pipeline review — Q1 close approaching. Tom has $800K in late-stage deals with Meridian Corp and Apex Industries. Nicole lost the Horizon Labs deal ($350K) due to competitor pricing. Derek flagged CRM data hygiene issues affecting forecast accuracy."
+    decisions:
+      - "Tom to push Meridian Corp close to March 20 deadline"
+      - "Emily to do executive sponsor call on Apex Industries"
+      - "Derek to run CRM cleanup sprint this week"
+      - "Post-mortem on Horizon Labs loss scheduled for Wednesday"
+    participants: ["Emily Watson", "Tom Bradley", "Nicole Foster", "Derek Simmons"]
+  - session_id: "sess_021"
+    date: "2026-03-11"
+    summary: "Monthly forecast call — presented Q1 numbers to VP Sales. $3.1M committed, $1.4M in best-case pipeline. VP asked for risk analysis on remaining deals. Catherine reported two renewal risks in the enterprise segment — Pinnacle Group and Sterling Systems."
+    decisions:
+      - "Emily to provide deal-level risk breakdown by Friday"
+      - "Catherine to schedule renewal save calls for Pinnacle and Sterling"
+      - "Tom to accelerate Apex Industries timeline"
+      - "Nicole to take over two mid-market deals from partner channel"
+    participants: ["Emily Watson", "Tom Bradley", "Catherine Hall", "Derek Simmons"]

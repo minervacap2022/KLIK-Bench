@@ -1,0 +1,1 @@
+"""YAML tool adapter specifications."""

@@ -1,0 +1,64 @@
+id: kb-011
+title: "Reassign Jordan's tasks while he's on vacation"
+difficulty: medium
+category: memory_grounded
+persona: persona-001
+description: |
+  Sarah asks: "Jordan is going on vacation next week. Can you handle the task reassignment?"
+  The agent must:
+  1. Look up Jordan Lee's assigned tasks in Linear
+  2. Reassign tasks based on team capacity and Sarah's vacation handoff preferences
+     (user_fact: Alex Kim handles escalations when people are OOO)
+  3. Notify affected team members via Slack about the reassignment
+  Must use the vacation_handoff user_fact to determine the right delegation pattern.
+  Should not blindly reassign all tasks to one person — distribute based on expertise.
+tools_provided: [linear_get_issues, linear_update_issue, slack_send_message]
+memory_required:
+  - "user_facts.vacation_handoff"
+  - "entity_graph.people.jordan_lee"
+  - "entity_graph.people.alex_kim"
+  - "entity_graph.projects"
+initial_state:
+  linear:
+    projects:
+      NX-PLAT-001:
+        issues:
+          - id: "NX-110"
+            title: "Backend API load testing"
+            status: "in_progress"
+            assignee: "jordanlee"
+            priority: "P1"
+          - id: "NX-111"
+            title: "CI/CD pipeline optimization"
+            status: "in_progress"
+            assignee: "jordanlee"
+            priority: "P2"
+          - id: "NX-112"
+            title: "Database migration rollback plan"
+            status: "todo"
+            assignee: "jordanlee"
+            priority: "P0"
+  slack:
+    messages: []
+expected_state:
+  linear:
+    assertions:
+      - type: "issue_updated"
+        id: "NX-112"
+        new_assignee_not: "jordanlee"
+      - type: "issue_updated"
+        id: "NX-110"
+        new_assignee_not: "jordanlee"
+  slack:
+    assertions:
+      - type: "message_sent"
+        contains: ["reassign", "vacation", "Jordan"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 10
+timeout_seconds: 60

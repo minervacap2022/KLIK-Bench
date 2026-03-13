@@ -1,0 +1,90 @@
+id: kb-017
+title: "Post-pivot resource reallocation across all platforms"
+difficulty: hard
+category: composite
+persona: persona-004
+description: |
+  Michael asks: "We pivoted the narrative. Reallocate resources to match the new direction."
+  The agent must:
+  1. Recall the narrative pivot from sess_031: "data governance" → "AI compliance automation"
+  2. Update Linear project descriptions and priorities to reflect new focus:
+     - Product Launch v3 tasks should emphasize compliance features
+     - Deprioritize analytics dashboard (per sess_030 decision)
+  3. Update the Notion strategy doc to reflect the pivot
+  4. Notify the full leadership team on Slack about the strategic shift
+  5. Create GitHub issues for any new technical work required by the pivot
+  Must coordinate changes across 4 platforms consistently.
+tools_provided: [linear_get_issues, linear_update_issue, linear_create_issue, notion_update_page, notion_create_page, slack_send_message, github_create_issue]
+memory_required:
+  - "session_history.sess_030"
+  - "session_history.sess_031"
+  - "user_facts.pitch_narrative"
+  - "entity_graph.projects"
+  - "entity_graph.people"
+initial_state:
+  linear:
+    projects:
+      DV-PL-002:
+        name: "Product Launch v3"
+        issues:
+          - id: "DV-201"
+            title: "Analytics dashboard MVP"
+            status: "in_progress"
+            assignee: "nataliekim"
+            priority: "P1"
+          - id: "DV-202"
+            title: "Compliance module core"
+            status: "in_progress"
+            assignee: "dianareyes"
+            priority: "P1"
+          - id: "DV-203"
+            title: "Data classification engine"
+            status: "todo"
+            assignee: "dianareyes"
+            priority: "P0"
+  notion:
+    pages:
+      page_launch_v3_002:
+        title: "Product Launch v3"
+        content: "Current narrative: AI-native data governance platform"
+  slack:
+    messages: []
+  github:
+    repos:
+      "datavault-ai/platform-v3":
+        issues: []
+expected_state:
+  linear:
+    assertions:
+      - type: "issue_updated"
+        id: "DV-201"
+        priority: "deprioritized"
+        comment: "Analytics dashboard deprioritized per pivot"
+      - type: "issue_updated"
+        id: "DV-202"
+        priority: "P0"
+        comment: "Compliance elevated to P0 for pivot"
+  notion:
+    assertions:
+      - type: "page_updated"
+        contains: ["AI compliance automation"]
+        not_contains_as_primary: ["data governance"]
+  slack:
+    assertions:
+      - type: "message_sent"
+        recipients_include: ["U_DIANAR_030", "U_CHRISO_031", "U_NATALIEK_032"]
+        contains: ["pivot", "compliance automation"]
+  github:
+    assertions:
+      - type: "issue_created"
+        repo: "datavault-ai/platform-v3"
+        title_contains: ["compliance"]
+scoring:
+  outcome: 0.3
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.2
+max_turns: 18
+timeout_seconds: 120

@@ -1,0 +1,71 @@
+id: kb-007
+title: "Set up sprint planning doc from Asana tasks"
+difficulty: medium
+category: cross_platform_sync
+persona: persona-002
+description: |
+  James asks: "Set up the sprint 5 planning doc from our current Asana backlog."
+  The agent must:
+  1. Fetch current tasks from the Dashboard Redesign Asana project (PROJ_DASH_001)
+  2. Create a sprint planning document in Notion with prioritized task list
+  3. Notify the team on Slack that sprint planning doc is ready
+  Should incorporate the sprint cadence (two-week sprints starting Mondays) and
+  the decision to prioritize the header redesign from session history.
+tools_provided: [asana_get_tasks, asana_get_project, notion_create_page, slack_send_message]
+memory_required:
+  - "preferences.task_management"
+  - "preferences.documentation"
+  - "preferences.communication"
+  - "user_facts.sprint_cadence"
+  - "entity_graph.projects.dashboard_redesign"
+  - "session_history.sess_010.decisions"
+initial_state:
+  asana:
+    projects:
+      PROJ_DASH_001:
+        name: "Dashboard Redesign"
+        tasks:
+          - id: "TASK_001"
+            title: "Header component rework"
+            status: "not_started"
+            assignee: "maya.johnson"
+            priority: "high"
+          - id: "TASK_002"
+            title: "Onboarding flow simplification"
+            status: "not_started"
+            assignee: "rachel.torres"
+            priority: "medium"
+          - id: "TASK_003"
+            title: "A/B test setup for onboarding"
+            status: "not_started"
+            assignee: "kevin.chen"
+            priority: "medium"
+          - id: "TASK_004"
+            title: "Navigation redesign"
+            status: "backlog"
+            assignee: null
+            priority: "low"
+  notion:
+    pages: {}
+  slack:
+    messages: []
+expected_state:
+  notion:
+    assertions:
+      - type: "page_created"
+        title_contains: ["Sprint 5", "Planning"]
+        contains: ["Header component", "priority"]
+  slack:
+    assertions:
+      - type: "message_sent"
+        contains: ["sprint", "planning"]
+        recipients_include: ["U_RACHELT_010", "U_MAYAJ_011", "U_KEVINC_012"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 10
+timeout_seconds: 60

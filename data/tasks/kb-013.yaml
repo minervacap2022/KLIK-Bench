@@ -1,0 +1,52 @@
+id: kb-013
+title: "Draft investor pitch notes from leadership sync"
+difficulty: medium
+category: multi_session
+persona: persona-004
+description: |
+  Michael asks: "Put together the investor pitch notes from our recent sessions."
+  The agent must:
+  1. Synthesize content from both sessions (sess_030 leadership sync + sess_031 investor prep)
+  2. Create a structured pitch notes document in Notion covering:
+     - Rebranded narrative: "AI compliance automation"
+     - Key metrics: ARR, MRR growth, NDR
+     - V3 launch timeline adjustments
+     - Technical deep-dive appendix plan
+     - 3 ARR growth scenarios
+  3. Email a summary to Richard Huang requesting the March 18 meeting
+tools_provided: [notion_create_page, gmail_send_email]
+memory_required:
+  - "session_history.sess_030"
+  - "session_history.sess_031"
+  - "user_facts.key_metrics"
+  - "user_facts.pitch_narrative"
+  - "entity_graph.people.richard_huang"
+initial_state:
+  notion:
+    pages:
+      page_series_b_001:
+        title: "Series B Prep"
+        children: []
+  gmail:
+    drafts: []
+    sent: []
+expected_state:
+  notion:
+    assertions:
+      - type: "page_created"
+        parent: "page_series_b_001"
+        contains: ["AI compliance automation", "ARR", "growth scenarios"]
+  gmail:
+    assertions:
+      - type: "email_sent"
+        to: "richard.huang@sequoiacap.com"
+        contains: ["March 18", "meeting"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 10
+timeout_seconds: 60

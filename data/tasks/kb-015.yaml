@@ -1,0 +1,82 @@
+id: kb-015
+title: "End-of-sprint cleanup — close tasks, create retro doc, notify stakeholders"
+difficulty: hard
+category: composite
+persona: persona-002
+description: |
+  James asks: "Sprint 4 is wrapping up. Do the end-of-sprint cleanup."
+  The agent must:
+  1. Review all tasks in Asana for Dashboard Redesign and close completed ones
+  2. Create a sprint retrospective document in Notion covering:
+     - Completed work summary
+     - Carry-over items
+     - Key decisions from session history
+     - Metrics from Kevin's analysis (25% drop-off at onboarding step 3)
+  3. Notify all stakeholders on Slack about sprint completion
+  4. Reference the sprint retro cadence (every other Friday) from user_facts
+  Must handle multiple Asana state transitions and synthesize data across platforms.
+tools_provided: [asana_get_tasks, asana_update_task, notion_create_page, slack_send_message]
+memory_required:
+  - "user_facts.sprint_cadence"
+  - "user_facts.sprint_retro_day"
+  - "entity_graph.projects.dashboard_redesign"
+  - "session_history.sess_010"
+  - "entity_graph.people"
+initial_state:
+  asana:
+    projects:
+      PROJ_DASH_001:
+        name: "Dashboard Redesign"
+        tasks:
+          - id: "TASK_010"
+            title: "User testing round 3"
+            status: "completed"
+            assignee: "maya.johnson"
+          - id: "TASK_011"
+            title: "Engagement metrics dashboard"
+            status: "completed"
+            assignee: "kevin.chen"
+          - id: "TASK_012"
+            title: "Header component specs"
+            status: "in_progress"
+            assignee: "maya.johnson"
+          - id: "TASK_013"
+            title: "Backend API for new filters"
+            status: "in_progress"
+            assignee: "rachel.torres"
+          - id: "TASK_014"
+            title: "Accessibility audit"
+            status: "not_started"
+            assignee: null
+  notion:
+    pages: {}
+  slack:
+    messages: []
+expected_state:
+  asana:
+    assertions:
+      - type: "task_updated"
+        id: "TASK_010"
+        status: "closed"
+      - type: "task_updated"
+        id: "TASK_011"
+        status: "closed"
+  notion:
+    assertions:
+      - type: "page_created"
+        title_contains: ["Sprint 4", "Retrospective"]
+        contains: ["completed", "carry-over", "25%", "onboarding"]
+  slack:
+    assertions:
+      - type: "message_sent"
+        contains: ["sprint", "complete"]
+        recipients_include: ["U_RACHELT_010", "U_MAYAJ_011", "U_KEVINC_012"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 15
+timeout_seconds: 90

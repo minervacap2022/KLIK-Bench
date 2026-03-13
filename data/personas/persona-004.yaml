@@ -1,0 +1,111 @@
+id: persona-004
+name: "Michael Zhang"
+role: "CEO"
+organization: "DataVault AI"
+
+preferences:
+  task_management: linear
+  documentation: notion
+  communication: slack
+  file_storage: google_drive
+  calendar: google_calendar
+  email: gmail
+  code: github
+  timezone: "America/San_Francisco"
+  language: "en"
+  meeting_notes_style: "high-level strategic bullets with ownership and deadlines"
+  notification_preference: "Slack for team updates, Gmail for investor and board communication"
+
+user_facts:
+  - key: "fundraising_stage"
+    value: "Series B — targeting $25M raise, currently in partner meetings"
+    confidence: 0.97
+  - key: "board_meeting_schedule"
+    value: "Quarterly board meetings, next one April 8, 2026"
+    confidence: 0.96
+  - key: "hiring_priorities"
+    value: "3 senior ML engineers, 1 head of marketing, 1 enterprise sales lead"
+    confidence: 0.94
+  - key: "key_metrics"
+    value: "ARR $3.8M, MRR growth 12% MoM, NDR 118%, burn rate $420K/month"
+    confidence: 0.95
+  - key: "runway"
+    value: "14 months at current burn, 8 months if hiring plan executes"
+    confidence: 0.93
+  - key: "pitch_narrative"
+    value: "AI-native data governance — only platform combining automated classification with compliance workflows"
+    confidence: 0.96
+
+entity_graph:
+  people:
+    - name: "Diana Reyes"
+      role: "CTO"
+      relationship: "co-founder, leads all technical decisions"
+      platforms:
+        slack: "U_DIANAR_030"
+        linear: "dianareyes"
+        github: "diana-dv"
+    - name: "Chris O'Brien"
+      role: "Head of Sales"
+      relationship: "leads revenue, reports directly"
+      platforms:
+        slack: "U_CHRISO_031"
+        linear: "chrisobrien"
+        email: "chris@datavault.ai"
+    - name: "Natalie Kim"
+      role: "Head of Product"
+      relationship: "owns product roadmap and customer feedback loop"
+      platforms:
+        slack: "U_NATALIEK_032"
+        linear: "nataliekim"
+        notion: "natalie.kim"
+    - name: "Richard Huang"
+      role: "Partner at Sequoia Capital"
+      relationship: "lead investor contact for Series B"
+      platforms:
+        email: "richard.huang@sequoiacap.com"
+        linkedin: "richardhuang-vc"
+
+  projects:
+    - name: "Series B Prep"
+      status: "in_progress"
+      priority: "P0"
+      owner: "michael.zhang"
+      team: ["dianareyes", "chrisobrien", "nataliekim"]
+      tools:
+        linear: "DV-SB-001"
+        notion: "page_series_b_001"
+        google_drive: "folder_fundraise_001"
+    - name: "Product Launch v3"
+      status: "in_progress"
+      priority: "P0"
+      owner: "nataliekim"
+      team: ["dianareyes", "nataliekim"]
+      tools:
+        linear: "DV-PL-002"
+        notion: "page_launch_v3_002"
+        github: "datavault-ai/platform-v3"
+
+  organizations:
+    - name: "DataVault AI"
+      departments: ["Engineering", "Product", "Sales", "Operations"]
+
+session_history:
+  - session_id: "sess_030"
+    date: "2026-03-10"
+    summary: "Weekly leadership sync — reviewed Series B progress. Richard Huang from Sequoia wants updated metrics deck by March 14. Chris reported $200K in new pipeline from enterprise pilot conversions. Diana flagged that v3 launch needs 2 more weeks for compliance module. Natalie proposed cutting scope on the analytics dashboard to hit the original date."
+    decisions:
+      - "Michael to send updated metrics deck to Richard by March 14"
+      - "Diana to estimate minimal compliance scope for on-time launch"
+      - "Natalie to deprioritize analytics dashboard for v3 launch"
+      - "Chris to schedule 3 enterprise demo calls next week"
+    participants: ["Michael Zhang", "Diana Reyes", "Chris O'Brien", "Natalie Kim"]
+  - session_id: "sess_031"
+    date: "2026-03-11"
+    summary: "Investor prep session with Diana — rehearsed Series B pitch. Key concerns: competitive moat (addressed with patent-pending classification engine), path to $10M ARR (modeled 3 scenarios), and team scaling plan. Diana suggested adding a technical deep-dive appendix. Agreed to pivot narrative from 'data governance' to 'AI compliance automation' based on market feedback."
+    decisions:
+      - "Rebrand pitch narrative to AI compliance automation"
+      - "Diana to prepare 5-slide technical deep-dive appendix"
+      - "Update financial model with 3 ARR growth scenarios"
+      - "Michael to email Richard with meeting request for March 18"
+    participants: ["Michael Zhang", "Diana Reyes"]

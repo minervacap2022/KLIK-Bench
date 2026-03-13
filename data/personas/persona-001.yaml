@@ -1,0 +1,126 @@
+id: persona-001
+name: "Sarah Chen"
+role: "VP Engineering"
+organization: "Nexus Technologies"
+
+preferences:
+  task_management: linear
+  documentation: notion
+  communication: slack
+  file_storage: google_drive
+  calendar: google_calendar
+  email: gmail
+  code: github
+  timezone: "America/Los_Angeles"
+  language: "en"
+  meeting_notes_style: "structured bullet points with action items at top"
+  notification_preference: "Slack DMs for urgent, email digest for weekly summaries"
+
+user_facts:
+  - key: "standup_day"
+    value: "Tuesday and Thursday, 9:30 AM PT"
+    confidence: 0.98
+  - key: "direct_reports"
+    value: "Jordan Lee, Priya Patel, Marcus Wright"
+    confidence: 0.97
+  - key: "current_focus"
+    value: "Platform Migration to microservices — target completion Q2 2026"
+    confidence: 0.95
+  - key: "communication_style"
+    value: "Direct and concise, prefers async Slack threads over meetings"
+    confidence: 0.93
+  - key: "vacation_handoff"
+    value: "Alex Kim handles all escalations when Sarah is OOO"
+    confidence: 0.96
+  - key: "code_review_preference"
+    value: "Requires two approvals on all PRs touching core platform"
+    confidence: 0.94
+  - key: "one_on_one_cadence"
+    value: "Weekly 1:1s with direct reports on Wednesdays"
+    confidence: 0.95
+
+entity_graph:
+  people:
+    - name: "Alex Kim"
+      role: "Senior Staff Engineer"
+      relationship: "trusted technical advisor, escalation backup"
+      platforms:
+        slack: "U_ALEXKIM_001"
+        linear: "alexkim"
+        github: "alexkim-nx"
+    - name: "Jordan Lee"
+      role: "Engineering Manager"
+      relationship: "direct report, leads backend team"
+      platforms:
+        slack: "U_JORDANLEE_002"
+        linear: "jordanlee"
+        github: "jlee-eng"
+    - name: "Priya Patel"
+      role: "Senior Developer"
+      relationship: "direct report, leads API Gateway project"
+      platforms:
+        slack: "U_PRIYAP_003"
+        linear: "priyapatel"
+        github: "priya-p"
+    - name: "Marcus Wright"
+      role: "Developer"
+      relationship: "direct report, showing signs of burnout"
+      platforms:
+        slack: "U_MARCUSW_004"
+        linear: "marcuswright"
+        github: "mwright-dev"
+    - name: "Lisa Wang"
+      role: "Product Manager"
+      relationship: "cross-functional partner, owns product roadmap"
+      platforms:
+        slack: "U_LISAW_005"
+        linear: "lisawang"
+        notion: "lisa.wang"
+    - name: "David Park"
+      role: "CEO"
+      relationship: "executive sponsor, monthly check-ins"
+      platforms:
+        slack: "U_DAVIDP_006"
+        email: "david.park@nexustech.com"
+
+  projects:
+    - name: "Platform Migration"
+      status: "in_progress"
+      priority: "P0"
+      owner: "sarah.chen"
+      team: ["alexkim", "jordanlee", "priyapatel", "marcuswright"]
+      tools:
+        linear: "NX-PLAT-001"
+        notion: "page_plat_migration_001"
+        github: "nexus-tech/platform-v2"
+    - name: "API Gateway Redesign"
+      status: "in_progress"
+      priority: "P1"
+      owner: "priyapatel"
+      team: ["priyapatel", "marcuswright", "alexkim"]
+      tools:
+        linear: "NX-API-002"
+        notion: "page_api_gateway_002"
+        github: "nexus-tech/api-gateway"
+
+  organizations:
+    - name: "Nexus Technologies"
+      departments: ["Engineering", "Product", "Design", "Executive"]
+
+session_history:
+  - session_id: "sess_001"
+    date: "2026-03-10"
+    summary: "Weekly engineering standup — Platform Migration sprint review. Discussed blockers on database sharding. Alex proposed new partitioning strategy. Marcus seemed disengaged and missed two sprint deliverables."
+    decisions:
+      - "Adopt Alex's partitioning strategy for user data tables"
+      - "Push database sharding milestone to March 20"
+      - "Schedule demo for March 14 to show progress to stakeholders"
+    participants: ["Sarah Chen", "Alex Kim", "Jordan Lee", "Priya Patel", "Marcus Wright"]
+  - session_id: "sess_002"
+    date: "2026-03-11"
+    summary: "1:1 with Alex Kim — discussed Marcus's burnout signals. Alex reported Marcus working late nights on the API Gateway refactor, taking on too many tickets. Agreed to redistribute some of his workload to reduce pressure without singling him out."
+    decisions:
+      - "Redistribute 3 of Marcus's lower-priority tickets to Jordan's team"
+      - "Alex to pair-program with Marcus on the auth service migration"
+      - "Sarah to have a supportive 1:1 with Marcus on Wednesday"
+    participants: ["Sarah Chen", "Alex Kim"]

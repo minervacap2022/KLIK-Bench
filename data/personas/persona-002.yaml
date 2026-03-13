@@ -1,0 +1,107 @@
+id: persona-002
+name: "James Rivera"
+role: "Head of Product"
+organization: "CloudSync Inc"
+
+preferences:
+  task_management: asana
+  documentation: notion
+  communication: slack
+  file_storage: google_drive
+  calendar: google_calendar
+  email: gmail
+  code: github
+  timezone: "America/New_York"
+  language: "en"
+  meeting_notes_style: "narrative with key takeaways and owner-tagged action items"
+  notification_preference: "Slack mentions for blockers, Asana inbox for task updates"
+
+user_facts:
+  - key: "sprint_cadence"
+    value: "Two-week sprints, starting Mondays"
+    confidence: 0.97
+  - key: "stakeholder_meeting_day"
+    value: "Fridays at 2 PM ET — product review with exec team"
+    confidence: 0.96
+  - key: "product_vision"
+    value: "Unified dashboard experience — reduce user clicks by 40% by Q3 2026"
+    confidence: 0.94
+  - key: "review_preferences"
+    value: "Prefers design mockups before engineering tickets are created"
+    confidence: 0.93
+  - key: "sprint_retro_day"
+    value: "Every other Friday morning before stakeholder meeting"
+    confidence: 0.95
+
+entity_graph:
+  people:
+    - name: "Rachel Torres"
+      role: "Engineering Lead"
+      relationship: "primary engineering counterpart"
+      platforms:
+        slack: "U_RACHELT_010"
+        asana: "rachel.torres"
+        github: "rtorres-cs"
+    - name: "Maya Johnson"
+      role: "Senior Designer"
+      relationship: "design lead, close collaborator on UX decisions"
+      platforms:
+        slack: "U_MAYAJ_011"
+        asana: "maya.johnson"
+        notion: "maya.j"
+    - name: "Kevin Chen"
+      role: "Data Analyst"
+      relationship: "provides metrics and user behavior data"
+      platforms:
+        slack: "U_KEVINC_012"
+        asana: "kevin.chen"
+    - name: "Samantha Blake"
+      role: "Marketing Lead"
+      relationship: "coordinates launches and messaging"
+      platforms:
+        slack: "U_SAMB_013"
+        asana: "samantha.blake"
+        email: "samantha.blake@cloudsync.com"
+
+  projects:
+    - name: "Dashboard Redesign"
+      status: "in_progress"
+      priority: "P0"
+      owner: "james.rivera"
+      team: ["rachel.torres", "maya.johnson", "kevin.chen"]
+      tools:
+        asana: "PROJ_DASH_001"
+        notion: "page_dash_redesign_001"
+        github: "cloudsync/dashboard-v2"
+    - name: "Mobile App v2"
+      status: "planning"
+      priority: "P1"
+      owner: "james.rivera"
+      team: ["rachel.torres", "maya.johnson"]
+      tools:
+        asana: "PROJ_MOB_002"
+        notion: "page_mobile_v2_002"
+        github: "cloudsync/mobile-app"
+
+  organizations:
+    - name: "CloudSync Inc"
+      departments: ["Product", "Engineering", "Design", "Marketing", "Data"]
+
+session_history:
+  - session_id: "sess_010"
+    date: "2026-03-09"
+    summary: "Product review — Dashboard Redesign sprint 4 demo. Header component needs rework per user testing feedback. Maya volunteered to lead the header redesign. Kevin presented engagement metrics showing 25% drop-off at onboarding step 3."
+    decisions:
+      - "Prioritize header redesign in sprint 5"
+      - "Kevin to run A/B test on simplified onboarding flow"
+      - "Rachel to allocate 2 engineers for header component"
+    participants: ["James Rivera", "Rachel Torres", "Maya Johnson", "Kevin Chen"]
+  - session_id: "sess_011"
+    date: "2026-03-11"
+    summary: "Stakeholder sync with exec team — discussed Mobile App v2 timeline. CEO wants beta by June. James proposed phased rollout starting with core features. Marketing needs 4 weeks lead time for launch prep. Rachel flagged a blocking dependency on the new auth SDK."
+    decisions:
+      - "Mobile App v2 beta target: June 15"
+      - "Phase 1 scope: core dashboard + notifications only"
+      - "Rachel to investigate auth SDK blocker by March 14"
+      - "Samantha to draft launch communication plan"
+    participants: ["James Rivera", "Rachel Torres", "Samantha Blake", "Maya Johnson"]

@@ -1,0 +1,58 @@
+id: kb-016
+title: "Lost deal analysis — find lost opportunities, create analysis, notify team"
+difficulty: hard
+category: composite
+persona: persona-003
+description: |
+  Emily asks: "I need a lost deal analysis for the quarter. Put it together."
+  The agent must:
+  1. Reference session history for known lost deals (Horizon Labs $350K — competitor pricing)
+     and at-risk deals (Pinnacle Group, Sterling Systems renewals)
+  2. Create a Jira epic or task for the lost deal analysis initiative
+  3. Create an analysis document in Confluence with deal details, loss reasons,
+     and recommended actions
+  4. Notify the team via Microsoft Teams (Emily's preference, NOT Slack)
+  Must use Emily's full Microsoft stack: Teams for communication, Confluence for docs.
+  The analysis should reference the MEDDPICC qualification framework from user_facts.
+tools_provided: [jira_create_issue, jira_get_issues, confluence_create_page, teams_send_message]
+memory_required:
+  - "preferences.communication"
+  - "preferences.documentation"
+  - "user_facts.deal_stage_methodology"
+  - "user_facts.quarterly_target"
+  - "session_history.sess_020"
+  - "session_history.sess_021"
+initial_state:
+  jira:
+    projects:
+      TF-ENT-001:
+        name: "Enterprise Expansion"
+        issues: []
+  confluence:
+    pages: {}
+  teams:
+    messages: []
+expected_state:
+  jira:
+    assertions:
+      - type: "issue_created"
+        project: "TF-ENT-001"
+        title_contains: ["lost deal", "analysis"]
+  confluence:
+    assertions:
+      - type: "page_created"
+        contains: ["Horizon Labs", "competitor pricing", "MEDDPICC"]
+  teams:
+    assertions:
+      - type: "message_sent"
+        contains: ["lost deal", "analysis"]
+        platform: "teams"
+scoring:
+  outcome: 0.3
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.2
+  tone_appropriateness: 0.1
+max_turns: 15
+timeout_seconds: 90

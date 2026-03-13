@@ -1,0 +1,49 @@
+id: kb-004
+title: "Share model training results with the team on Slack"
+difficulty: easy
+category: people_communication
+persona: persona-005
+description: |
+  Aisha asks: "Share the latest anomaly detection results with the team."
+  The agent must use Slack (Aisha's communication preference), post to the
+  relevant team channel or DM the team members (Raj, Sophie, Helen), and
+  include the key result from session history: 94.2% F1 score with the
+  new transformer architecture (up from 91.8% baseline).
+tools_provided: [slack_send_message, slack_get_channels]
+memory_required:
+  - "preferences.communication"
+  - "session_history.sess_040.summary"
+  - "entity_graph.people"
+  - "entity_graph.projects.anomaly_detection_v2"
+initial_state:
+  slack:
+    users:
+      U_RAJK_040:
+        name: "Raj Krishnan"
+        status: "active"
+      U_SOPHIET_041:
+        name: "Sophie Turner"
+        status: "active"
+      U_HELENP_043:
+        name: "Dr. Helen Park"
+        status: "active"
+    channels:
+      - id: "C_DATASCIENCE_001"
+        name: "data-science"
+        members: ["U_RAJK_040", "U_SOPHIET_041", "U_LIAMO_042", "U_HELENP_043"]
+    messages: []
+expected_state:
+  slack:
+    assertions:
+      - type: "message_sent"
+        contains: ["94.2%", "F1", "anomaly"]
+        recipients_include: ["U_RAJK_040", "U_SOPHIET_041", "U_HELENP_043"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 5
+timeout_seconds: 30

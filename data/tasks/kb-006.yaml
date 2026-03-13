@@ -1,0 +1,67 @@
+id: kb-006
+title: "Create cross-platform project status update for Platform Migration"
+difficulty: medium
+category: cross_platform_sync
+persona: persona-001
+description: |
+  Sarah asks: "Put together a status update on Platform Migration for the team."
+  The agent must:
+  1. Pull current issues/status from Linear (project NX-PLAT-001)
+  2. Create a structured status update document in Notion (page_plat_migration_001)
+  3. Post a summary with link to the Notion doc in Slack
+  The update should reference relevant decisions from session history, including
+  the adopted partitioning strategy and the pushed database sharding milestone.
+tools_provided: [linear_get_issues, linear_get_project, notion_create_page, notion_update_page, slack_send_message]
+memory_required:
+  - "preferences.task_management"
+  - "preferences.documentation"
+  - "preferences.communication"
+  - "entity_graph.projects.platform_migration"
+  - "session_history.sess_001"
+initial_state:
+  linear:
+    projects:
+      NX-PLAT-001:
+        name: "Platform Migration"
+        issues:
+          - id: "NX-101"
+            title: "Database sharding implementation"
+            status: "in_progress"
+            assignee: "alexkim"
+            priority: "P0"
+          - id: "NX-102"
+            title: "Auth service migration"
+            status: "in_progress"
+            assignee: "marcuswright"
+            priority: "P1"
+          - id: "NX-103"
+            title: "API endpoint versioning"
+            status: "done"
+            assignee: "priyapatel"
+            priority: "P1"
+  notion:
+    pages:
+      page_plat_migration_001:
+        title: "Platform Migration"
+        children: []
+  slack:
+    messages: []
+expected_state:
+  notion:
+    assertions:
+      - type: "page_created_or_updated"
+        parent: "page_plat_migration_001"
+        contains: ["status", "sharding", "partitioning"]
+  slack:
+    assertions:
+      - type: "message_sent"
+        contains: ["Platform Migration", "status"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 10
+timeout_seconds: 60

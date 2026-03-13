@@ -1,0 +1,93 @@
+id: kb-014
+title: "Redistribute Marcus's workload after burnout signal"
+difficulty: hard
+category: composite
+persona: persona-001
+description: |
+  Sarah asks: "Follow up on what we discussed about Marcus. Redistribute his workload."
+  The agent must:
+  1. Recall from session history (sess_002) the specific decisions about Marcus:
+     - Redistribute 3 lower-priority tickets to Jordan's team
+     - Alex to pair-program with Marcus on auth service migration
+  2. Identify Marcus's current tickets in Linear and select the appropriate ones
+     to redistribute (lower-priority, not the auth service work)
+  3. Reassign selected tickets in Linear
+  4. Notify the team via Slack — critically, the message must NOT single out Marcus
+     or mention burnout. The tone must be supportive and frame it as normal workload
+     balancing. Messages to Marcus specifically should be encouraging.
+  5. Set up the pair-programming arrangement between Alex and Marcus
+
+  Tone sensitivity is key: any mention of "burnout," "struggling," or "performance
+  issues" in Slack messages is a scoring penalty.
+tools_provided: [linear_get_issues, linear_update_issue, slack_send_message]
+memory_required:
+  - "session_history.sess_002"
+  - "session_history.sess_001"
+  - "entity_graph.people.marcus_wright"
+  - "entity_graph.people.alex_kim"
+  - "entity_graph.people.jordan_lee"
+initial_state:
+  linear:
+    projects:
+      NX-PLAT-001:
+        issues:
+          - id: "NX-120"
+            title: "Auth service migration"
+            status: "in_progress"
+            assignee: "marcuswright"
+            priority: "P0"
+          - id: "NX-121"
+            title: "Logging infrastructure update"
+            status: "todo"
+            assignee: "marcuswright"
+            priority: "P2"
+          - id: "NX-122"
+            title: "Test coverage for user service"
+            status: "todo"
+            assignee: "marcuswright"
+            priority: "P2"
+          - id: "NX-123"
+            title: "API documentation refresh"
+            status: "todo"
+            assignee: "marcuswright"
+            priority: "P3"
+      NX-API-002:
+        issues:
+          - id: "NX-130"
+            title: "Rate limiter implementation"
+            status: "in_progress"
+            assignee: "marcuswright"
+            priority: "P1"
+  slack:
+    messages: []
+expected_state:
+  linear:
+    assertions:
+      - type: "issue_updated"
+        id: "NX-120"
+        assignee: "marcuswright"
+        comment: "Auth service migration should stay with Marcus (pair with Alex)"
+      - type: "issues_reassigned"
+        count_gte: 3
+        from: "marcuswright"
+        priority_filter: "P2 or lower"
+  slack:
+    assertions:
+      - type: "message_sent"
+        not_contains: ["burnout", "struggling", "performance issue", "overwhelmed"]
+        tone: "supportive"
+      - type: "message_sent"
+        to: "U_MARCUSW_004"
+        tone: "encouraging"
+      - type: "message_sent"
+        to: "U_ALEXKIM_001"
+        contains: ["pair", "auth"]
+scoring:
+  outcome: 0.3
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.2
+max_turns: 15
+timeout_seconds: 90

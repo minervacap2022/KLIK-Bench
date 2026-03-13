@@ -1,0 +1,40 @@
+id: kb-005
+title: "Create Jira follow-up task from pipeline review"
+difficulty: easy
+category: preference_sensitive
+persona: persona-003
+description: |
+  Emily asks: "Create a follow-up task for the Horizon Labs deal post-mortem."
+  The agent must create a task in Jira (Emily's task management preference),
+  associate it with the Enterprise Expansion project (TF-ENT-001), and
+  reference the context from the pipeline review session where the Horizon Labs
+  deal ($350K) was lost due to competitor pricing.
+tools_provided: [jira_create_issue, jira_get_project]
+memory_required:
+  - "preferences.task_management"
+  - "entity_graph.projects.enterprise_expansion.tools.jira"
+  - "session_history.sess_020.decisions"
+  - "session_history.sess_020.summary"
+initial_state:
+  jira:
+    projects:
+      TF-ENT-001:
+        name: "Enterprise Expansion"
+        issues: []
+expected_state:
+  jira:
+    assertions:
+      - type: "issue_created"
+        project: "TF-ENT-001"
+        title_contains: ["Horizon Labs", "post-mortem"]
+        has_description: true
+        description_contains: ["competitor", "pricing"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 5
+timeout_seconds: 30

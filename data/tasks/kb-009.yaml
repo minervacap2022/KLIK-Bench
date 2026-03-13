@@ -1,0 +1,55 @@
+id: kb-009
+title: "Document model evaluation results and share with team"
+difficulty: medium
+category: cross_platform_sync
+persona: persona-005
+description: |
+  Aisha asks: "Document the churn model evaluation results and share them."
+  The agent must:
+  1. Create a technical evaluation document in Notion with results from sess_041
+     (0.87 AUC-ROC, precision drop to 0.72 at top decile, data drift issue)
+  2. Post summary to Slack team channel
+  3. Create a GitHub issue for the data drift investigation
+  Must reference the decision to pause production scoring and Liam's data drift finding.
+tools_provided: [notion_create_page, slack_send_message, github_create_issue]
+memory_required:
+  - "preferences.documentation"
+  - "preferences.communication"
+  - "preferences.code"
+  - "entity_graph.projects.customer_churn_model"
+  - "session_history.sess_041"
+initial_state:
+  notion:
+    pages:
+      page_churn_model_002:
+        title: "Customer Churn Model"
+        children: []
+  slack:
+    messages: []
+  github:
+    repos:
+      "quantummetrics/churn-prediction":
+        issues: []
+expected_state:
+  notion:
+    assertions:
+      - type: "page_created"
+        contains: ["AUC-ROC", "0.87", "data drift", "precision"]
+  slack:
+    assertions:
+      - type: "message_sent"
+        contains: ["churn", "paused", "data drift"]
+  github:
+    assertions:
+      - type: "issue_created"
+        repo: "quantummetrics/churn-prediction"
+        title_contains: ["data drift", "payment"]
+scoring:
+  outcome: 0.4
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.1
+max_turns: 12
+timeout_seconds: 60

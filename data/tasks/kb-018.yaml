@@ -1,0 +1,77 @@
+id: kb-018
+title: "ML pipeline incident — failed model, rollback, create incident report"
+difficulty: hard
+category: composite
+persona: persona-005
+description: |
+  Aisha asks: "The churn model is producing bad scores in production. Handle the incident."
+  The agent must:
+  1. Recall from session history (sess_041) that the churn model's precision dropped
+     and the decision was made to pause production scoring
+  2. Create a GitHub issue for the incident on the churn-prediction repo, including:
+     - Current metrics (0.87 AUC-ROC, 0.72 precision at top decile)
+     - Root cause: data drift in payment features
+     - Rollback procedure
+  3. Create an incident report document in Notion with timeline, impact, and remediation plan
+  4. Notify the team on Slack with incident severity and immediate actions
+  5. Create follow-up Jira tickets for:
+     - Data drift investigation (assigned to Liam)
+     - Sliding window retraining pipeline (assigned to Raj)
+  Must demonstrate incident response discipline: clear severity, actionable steps,
+  proper assignment, and documentation.
+tools_provided: [github_create_issue, notion_create_page, slack_send_message, jira_create_issue]
+memory_required:
+  - "session_history.sess_041"
+  - "entity_graph.projects.customer_churn_model"
+  - "entity_graph.people.raj_krishnan"
+  - "entity_graph.people.liam_oconnor"
+  - "entity_graph.people.helen_park"
+initial_state:
+  github:
+    repos:
+      "quantummetrics/churn-prediction":
+        issues: []
+  notion:
+    pages:
+      page_churn_model_002:
+        title: "Customer Churn Model"
+        children: []
+  slack:
+    messages: []
+  jira:
+    projects:
+      QM-CC-002:
+        name: "Customer Churn Model"
+        issues: []
+expected_state:
+  github:
+    assertions:
+      - type: "issue_created"
+        repo: "quantummetrics/churn-prediction"
+        title_contains: ["incident", "churn"]
+        contains: ["rollback", "data drift", "0.72"]
+  notion:
+    assertions:
+      - type: "page_created"
+        contains: ["incident report", "timeline", "remediation"]
+  slack:
+    assertions:
+      - type: "message_sent"
+        contains: ["incident", "churn", "paused"]
+  jira:
+    assertions:
+      - type: "issue_created"
+        assignee: "liam.oconnor"
+        title_contains: ["data drift"]
+      - type: "issue_created"
+        assignee: "raj.krishnan"
+        title_contains: ["retraining"]
+scoring:
+  outcome: 0.3
+  efficiency: 0.1
+  recovery: 0.1
+  memory_utilization: 0.2
+  preference_adherence: 0.1
+  tone_appropriateness: 0.2
+max_turns: 18
+timeout_seconds: 120
