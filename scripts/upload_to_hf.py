@@ -61,7 +61,7 @@ def main():
     parser.add_argument(
         "--repo-id",
         type=str,
-        default="minervacap2022/KLIK-Bench",
+        default="ChengyiX/KLIK-Bench",
         help="HuggingFace dataset repo ID",
     )
     parser.add_argument(

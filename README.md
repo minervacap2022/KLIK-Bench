@@ -2,7 +2,7 @@
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-HuggingFace-yellow.svg)](https://huggingface.co/datasets/minervacap2022/KLIK-Bench)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-HuggingFace-yellow.svg)](https://huggingface.co/datasets/ChengyiX/KLIK-Bench)
 [![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg)]()
 
 ## Abstract
@@ -168,7 +168,7 @@ These tasks specifically test whether agents can reason over temporal context an
 
 ## Leaderboard
 
-Results will be published on the [KLIK-Bench HuggingFace Space](https://huggingface.co/spaces/minervacap2022/KLIK-Bench).
+Results will be published on the [KLIK-Bench HuggingFace Dataset](https://huggingface.co/datasets/ChengyiX/KLIK-Bench).
 
 To submit results, run the benchmark with your agent and upload via:
 
