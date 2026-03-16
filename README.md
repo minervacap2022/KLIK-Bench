@@ -1,3 +1,81 @@
+---
+configs:
+  - config_name: tasks
+    data_files:
+      - split: test
+        path: data/tasks.jsonl
+  - config_name: personas
+    data_files:
+      - split: test
+        path: data/personas.jsonl
+    default: true
+dataset_info:
+  - config_name: tasks
+    features:
+      - name: id
+        dtype: string
+      - name: title
+        dtype: string
+      - name: difficulty
+        dtype: string
+      - name: category
+        dtype: string
+      - name: persona
+        dtype: string
+      - name: description
+        dtype: string
+      - name: tools_provided
+        dtype: string
+      - name: memory_required
+        dtype: string
+      - name: initial_state
+        dtype: string
+      - name: expected_state
+        dtype: string
+      - name: scoring
+        dtype: string
+      - name: max_turns
+        dtype: int64
+      - name: timeout_seconds
+        dtype: int64
+    splits:
+      - name: test
+        num_examples: 30
+  - config_name: personas
+    features:
+      - name: id
+        dtype: string
+      - name: name
+        dtype: string
+      - name: role
+        dtype: string
+      - name: organization
+        dtype: string
+      - name: preferences
+        dtype: string
+      - name: user_facts
+        dtype: string
+      - name: entity_graph
+        dtype: string
+      - name: session_history
+        dtype: string
+    splits:
+      - name: test
+        num_examples: 8
+license: apache-2.0
+task_categories:
+  - text-generation
+tags:
+  - benchmark
+  - agent-evaluation
+  - memory-grounded
+  - tool-use
+  - personalization
+pretty_name: KLIK-Bench
+size_categories:
+  - n<1K
+---
+
 # KLIK-Bench: Benchmarking AI Agents on Memory-Grounded Multi-Tool Orchestration
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
