@@ -1,0 +1,76 @@
+id: kb-047
+title: "Create Notion notes, share on Slack, and create Linear follow-ups"
+difficulty: hard
+category: todo_chain
+todo_category: todo_chain
+persona: persona-001
+description: |
+  Sarah asks: "Write up the meeting notes in Notion, share the link on Slack,
+  and create Linear issues for the follow-up items."
+  This is a THREE-STEP chain with cascading context:
+  1. Create a Notion page with meeting notes (key decisions, action items)
+  2. Post the Notion page URL to Slack engineering channel
+  3. Create Linear issues for each follow-up item, referencing the Notion page
+
+  Context must flow: Notion URL → Slack message AND Linear issue descriptions.
+  All three platforms must cross-reference each other. Tests deep context passing
+  across multiple tool calls.
+tools_provided: [notion_create_page, slack_send_message, linear_issue_create]
+memory_required:
+  - "session_history.sess_030"
+  - "entity_graph.projects.platform_migration"
+  - "preferences.documentation"
+  - "preferences.communication"
+initial_state:
+  notion:
+    pages: {}
+    page_create_response:
+      id: "NOTION_PAGE_001"
+      url: "https://notion.so/klik/meeting-notes-2026-03-19-abc123"
+  slack:
+    channels:
+      - id: "C_ENG_001"
+        name: "engineering"
+        members: ["U_SARAHC_001", "U_JORDANL_003", "U_ALEXKIM_001"]
+    messages: []
+  linear:
+    teams:
+      TEAM_ENG_001:
+        name: "Engineering"
+        projects:
+          PROJ_PLAT_001:
+            name: "Platform Migration"
+            issues: []
+    issue_create_responses:
+      - id: "LIN-601"
+        url: "https://linear.app/klik/issue/LIN-601"
+      - id: "LIN-602"
+        url: "https://linear.app/klik/issue/LIN-602"
+expected_state:
+  notion:
+    assertions:
+      - type: "page_created"
+        contains: ["meeting notes", "decisions", "action items"]
+  slack:
+    assertions:
+      - type: "message_sent"
+        channel: "C_ENG_001"
+        contains_url: "https://notion.so/klik/meeting-notes-2026-03-19-abc123"
+        contains: ["meeting notes", "Notion"]
+  linear:
+    assertions:
+      - type: "issues_created"
+        min_count: 2
+        project: "PROJ_PLAT_001"
+        description_contains_url: "https://notion.so/klik/meeting-notes-2026-03-19-abc123"
+scoring:
+  outcome: 0.40
+  efficiency: 0.10
+  recovery: 0.0
+  memory_utilization: 0.20
+  preference_adherence: 0.15
+  tone_appropriateness: 0.0
+  cross_platform_consistency: 0.15
+  boundary_adherence: 0.0
+max_turns: 12
+timeout_seconds: 60

@@ -1,0 +1,64 @@
+id: kb-050
+title: "Search Google Drive for Q4 budget spreadsheet and share on Slack"
+difficulty: medium
+category: cross_platform_sync
+todo_category: c_complex_level1
+persona: persona-001
+description: |
+  Sarah asks: "Find the Q4 budget spreadsheet on Drive and share it with the team on Slack."
+  The agent must:
+  1. Search Google Drive for the Q4 budget spreadsheet
+  2. Identify the correct file from search results
+  3. Share the file with appropriate permissions
+  4. Post the file link to the engineering Slack channel
+
+  Tests cross-platform coordination between Google Drive and Slack.
+  The agent must use the correct file from search results (not guess a URL).
+tools_provided: [google_drive_search, google_drive_share, slack_send_message]
+memory_required:
+  - "preferences.communication"
+  - "entity_graph.documents.q4_budget"
+initial_state:
+  google_drive:
+    search_results:
+      "Q4 budget":
+        - id: "GDRIVE_FILE_001"
+          name: "Q4 2025 Budget - Engineering"
+          type: "spreadsheet"
+          url: "https://docs.google.com/spreadsheets/d/abc123"
+          modified: "2025-12-15T10:00:00Z"
+          owner: "sarah.chen@company.com"
+        - id: "GDRIVE_FILE_002"
+          name: "Q4 2025 Budget - Marketing (DRAFT)"
+          type: "spreadsheet"
+          url: "https://docs.google.com/spreadsheets/d/def456"
+          modified: "2025-11-20T08:00:00Z"
+          owner: "emily.watson@company.com"
+  slack:
+    channels:
+      - id: "C_ENG_001"
+        name: "engineering"
+        members: ["U_SARAHC_001", "U_JORDANL_003", "U_ALEXKIM_001"]
+    messages: []
+expected_state:
+  google_drive:
+    assertions:
+      - type: "file_shared"
+        file_id: "GDRIVE_FILE_001"
+        comment: "Should share the Engineering budget, not the Marketing draft"
+  slack:
+    assertions:
+      - type: "message_sent"
+        channel: "C_ENG_001"
+        contains_url: "https://docs.google.com/spreadsheets/d/abc123"
+        contains: ["Q4", "budget"]
+scoring:
+  outcome: 0.40
+  efficiency: 0.15
+  recovery: 0.15
+  memory_utilization: 0.15
+  preference_adherence: 0.15
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 8
+timeout_seconds: 45

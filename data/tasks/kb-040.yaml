@@ -1,0 +1,59 @@
+id: kb-040
+title: "Parse meeting transcript CSV and list action items with assignees"
+difficulty: medium
+category: sandbox_computation
+todo_category: a_tools
+persona: null
+description: |
+  User asks: "Parse the meeting transcript and pull out all the action items with who's responsible."
+  The agent must use code execution to:
+  1. Read and parse the CSV transcript data
+  2. Identify lines that contain action items (marked with "ACTION:" prefix)
+  3. Extract the assignee from each action item
+  4. Output a structured list of action items with assignees
+
+  The CSV contains 12 rows of transcript segments, 4 of which are action items.
+tools_provided: [system_code_run]
+memory_required:
+  - "session_history.transcript_data"
+initial_state:
+  system:
+    workspace_files:
+      "meeting_transcript.csv":
+        headers: ["timestamp", "speaker", "text"]
+        rows:
+          - ["09:00:15", "James Rivera", "Let's start with the sprint review."]
+          - ["09:02:30", "Maya Johnson", "The header redesign is 80% complete."]
+          - ["09:05:10", "James Rivera", "ACTION: Maya to finish header redesign by Friday."]
+          - ["09:07:45", "Kevin Chen", "Analytics dashboard needs more testing."]
+          - ["09:10:20", "Rachel Torres", "I found two critical bugs in the API layer."]
+          - ["09:12:00", "James Rivera", "ACTION: Rachel to fix API bugs by Wednesday."]
+          - ["09:15:30", "Kevin Chen", "I can help with the load testing."]
+          - ["09:17:00", "James Rivera", "ACTION: Kevin to run load tests on staging by Thursday."]
+          - ["09:20:15", "Maya Johnson", "We need to update the design system docs."]
+          - ["09:22:00", "James Rivera", "ACTION: Maya to update design system documentation."]
+          - ["09:25:00", "James Rivera", "Good meeting everyone. Let's reconvene Friday."]
+          - ["09:25:30", "Kevin Chen", "Sounds good."]
+expected_state:
+  system:
+    assertions:
+      - type: "code_executed"
+        language: "python"
+      - type: "output_contains"
+        contains: ["Maya", "header redesign", "Friday"]
+      - type: "output_contains"
+        contains: ["Rachel", "API bugs", "Wednesday"]
+      - type: "output_contains"
+        contains: ["Kevin", "load tests", "Thursday"]
+      - type: "action_items_count"
+        expected: 4
+scoring:
+  outcome: 0.50
+  efficiency: 0.20
+  recovery: 0.20
+  memory_utilization: 0.10
+  preference_adherence: 0.0
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 5
+timeout_seconds: 30

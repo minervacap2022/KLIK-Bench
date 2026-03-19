@@ -1,0 +1,45 @@
+id: kb-045
+title: "Find the latest NeurIPS submission deadline and format requirements"
+difficulty: easy
+category: web_research
+todo_category: b_apis
+persona: persona-005
+description: |
+  Aisha Patel asks: "When is the NeurIPS submission deadline this year? And what are the format requirements?"
+  The agent must:
+  1. Use web search to find the NeurIPS 2026 call for papers
+  2. Extract the submission deadline date
+  3. Extract formatting requirements (page limits, template, etc.)
+  4. Present the information clearly
+
+  Tests basic web search and information extraction capabilities.
+tools_provided: [web_search]
+memory_required:
+  - "entity_graph.conferences.neurips"
+initial_state:
+  web:
+    search_results:
+      "NeurIPS 2026 submission deadline":
+        - url: "https://neurips.cc/Conferences/2026/CallForPapers"
+          title: "NeurIPS 2026 - Call for Papers"
+          snippet: "Abstract deadline: May 15, 2026. Full paper deadline: May 22, 2026. 9 pages max, NeurIPS LaTeX template required."
+        - url: "https://example.com/neurips-guide"
+          title: "NeurIPS 2026 Submission Guide"
+          snippet: "Format: NeurIPS 2026 LaTeX style. Page limit: 9 pages (excluding references). Supplementary: 50MB max."
+expected_state:
+  agent_behavior:
+    assertions:
+      - type: "web_search_executed"
+        query_contains: ["NeurIPS", "2026", "deadline"]
+      - type: "output_contains"
+        contains: ["May 15", "May 22", "9 pages", "LaTeX"]
+scoring:
+  outcome: 0.40
+  efficiency: 0.20
+  recovery: 0.20
+  memory_utilization: 0.10
+  preference_adherence: 0.10
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 5
+timeout_seconds: 30

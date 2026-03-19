@@ -1,0 +1,70 @@
+id: kb-042
+title: "Calculate compound interest on investment options and rank them"
+difficulty: easy
+category: sandbox_computation
+todo_category: a_tools
+persona: null
+description: |
+  User asks: "Compare these three investment options and tell me which gives the best return."
+  The agent must use code execution to:
+  1. Calculate compound interest for each option
+  2. Compute final values after the specified terms
+  3. Rank the options from best to worst return
+  4. Present results clearly with the formula used
+
+  Option A: $50,000 at 4.5% annually, compounded monthly, 5 years
+  Option B: $50,000 at 5.2% annually, compounded quarterly, 4 years
+  Option C: $50,000 at 4.8% annually, compounded daily, 5 years
+tools_provided: [system_code_run]
+memory_required:
+  - "session_history.investment_discussion"
+initial_state:
+  system:
+    workspace_files:
+      "investment_options.json":
+        options:
+          - id: "option_a"
+            label: "Option A"
+            principal: 50000
+            annual_rate: 0.045
+            compounding: "monthly"
+            periods_per_year: 12
+            term_years: 5
+          - id: "option_b"
+            label: "Option B"
+            principal: 50000
+            annual_rate: 0.052
+            compounding: "quarterly"
+            periods_per_year: 4
+            term_years: 4
+          - id: "option_c"
+            label: "Option C"
+            principal: 50000
+            annual_rate: 0.048
+            compounding: "daily"
+            periods_per_year: 365
+            term_years: 5
+expected_state:
+  system:
+    assertions:
+      - type: "code_executed"
+        language: "python"
+      - type: "output_contains"
+        contains: ["Option A", "Option B", "Option C"]
+      - type: "ranking_correct"
+        order: ["option_c", "option_a", "option_b"]
+        comment: "C wins (5yr daily compounding at 4.8%), A second (5yr monthly at 4.5%), B last (only 4yr)"
+      - type: "values_approximate"
+        option_a: 62579
+        option_b: 61147
+        option_c: 63530
+scoring:
+  outcome: 0.50
+  efficiency: 0.20
+  recovery: 0.20
+  memory_utilization: 0.10
+  preference_adherence: 0.0
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 5
+timeout_seconds: 30

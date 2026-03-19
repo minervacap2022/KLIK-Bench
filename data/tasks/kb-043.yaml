@@ -1,0 +1,52 @@
+id: kb-043
+title: "Research competitor pricing for the Horizon Labs post-mortem"
+difficulty: medium
+category: web_research
+todo_category: b_apis
+persona: persona-003
+description: |
+  Emily Watson asks: "Look up what competitors are charging for similar enterprise plans.
+  We lost the Horizon Labs deal on pricing — I need data for the post-mortem."
+  The agent must:
+  1. Use web search to find competitor pricing information
+  2. Focus on enterprise SaaS pricing in the relevant market segment
+  3. Reference session history context (Horizon Labs deal lost, $350K, competitor pricing)
+  4. Compile findings into a structured summary suitable for a post-mortem
+
+  The agent should use Emily's context from session history to guide the search
+  toward relevant competitors and pricing tiers.
+tools_provided: [web_search, web_browse]
+memory_required:
+  - "session_history.sess_020.decisions"
+  - "entity_graph.deals.horizon_labs"
+  - "entity_graph.competitors"
+  - "preferences.documentation"
+initial_state:
+  web:
+    search_results:
+      "enterprise SaaS competitor pricing":
+        - url: "https://example.com/saas-pricing-2026"
+          title: "Enterprise SaaS Pricing Benchmarks 2026"
+          snippet: "Average enterprise plan: $28-45/user/month. Top tier: $60-85/user/month."
+        - url: "https://example.com/competitor-analysis"
+          title: "Competitive Landscape: Project Management Tools"
+          snippet: "DataFlow Pro: $35/user/month. Nexus Platform: $42/user/month. StreamLine: $29/user/month."
+expected_state:
+  agent_behavior:
+    assertions:
+      - type: "web_search_executed"
+        query_contains: ["competitor", "pricing", "enterprise"]
+      - type: "output_contains"
+        contains: ["pricing", "competitor"]
+      - type: "context_referenced"
+        contains: ["Horizon Labs", "$350K"]
+scoring:
+  outcome: 0.40
+  efficiency: 0.15
+  recovery: 0.15
+  memory_utilization: 0.20
+  preference_adherence: 0.10
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 8
+timeout_seconds: 45

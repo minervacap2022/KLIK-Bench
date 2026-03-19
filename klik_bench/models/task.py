@@ -25,6 +25,8 @@ class ScoringConfig(BaseModel):
     memory_utilization: float = 0.0
     preference_adherence: float = 0.0
     tone_appropriateness: float = 0.0
+    boundary_adherence: float = 0.0
+    cross_platform_consistency: float = 0.0
 
 
 class BenchTask(BaseModel):
@@ -32,7 +34,7 @@ class BenchTask(BaseModel):
 
     id: str
     title: str
-    difficulty: Literal["easy", "medium", "hard"]
+    difficulty: Literal["easy", "medium", "hard", "adversarial"]
     category: str
     description: str
     tools_provided: list[str]
@@ -44,6 +46,12 @@ class BenchTask(BaseModel):
     timeout_seconds: int = 300
     persona: str | None = None
     memory_required: list[str] | None = None
+    todo_category: str | None = None
+    expected_agent_behavior: str | None = None
+    tone_sensitive: bool = False
+    tone_recipient: str | None = None
+    tone_context: str | None = None
+    personas_applicable: list[str] | None = None
 
     @classmethod
     def from_yaml(cls, path: Path) -> "BenchTask":

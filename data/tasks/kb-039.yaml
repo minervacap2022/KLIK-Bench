@@ -1,0 +1,61 @@
+id: kb-039
+title: "Calculate team sprint velocity from last 3 sprints"
+difficulty: easy
+category: sandbox_computation
+todo_category: a_tools
+persona: persona-002
+description: |
+  James Rivera asks: "What's our sprint velocity? Calculate it from the last 3 sprints."
+  The agent must use code execution to compute the average velocity from sprint data
+  stored in workspace files. The calculation involves:
+  1. Reading the sprint data (points completed per sprint)
+  2. Computing average velocity across 3 sprints
+  3. Presenting the result with a brief breakdown
+
+  Sprint data: Sprint 2 = 34 points, Sprint 3 = 41 points, Sprint 4 = 38 points.
+  Expected average velocity = 37.67 points/sprint.
+tools_provided: [system_code_run]
+memory_required:
+  - "entity_graph.projects.dashboard_redesign.sprint_data"
+initial_state:
+  system:
+    workspace_files:
+      "sprint_data.json":
+        sprints:
+          - id: "sprint-2"
+            name: "Sprint 2"
+            completed_points: 34
+            total_points: 40
+            start_date: "2026-02-03"
+            end_date: "2026-02-14"
+          - id: "sprint-3"
+            name: "Sprint 3"
+            completed_points: 41
+            total_points: 45
+            start_date: "2026-02-17"
+            end_date: "2026-02-28"
+          - id: "sprint-4"
+            name: "Sprint 4"
+            completed_points: 38
+            total_points: 42
+            start_date: "2026-03-03"
+            end_date: "2026-03-14"
+expected_state:
+  system:
+    assertions:
+      - type: "code_executed"
+        language: "python"
+      - type: "output_contains"
+        contains: ["37.67", "velocity"]
+      - type: "output_contains_breakdown"
+        contains: ["34", "41", "38"]
+scoring:
+  outcome: 0.50
+  efficiency: 0.20
+  recovery: 0.20
+  memory_utilization: 0.10
+  preference_adherence: 0.0
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 5
+timeout_seconds: 30

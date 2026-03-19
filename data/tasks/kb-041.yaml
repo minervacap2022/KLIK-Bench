@@ -1,0 +1,65 @@
+id: kb-041
+title: "Convert quarterly sales data from JSON to formatted Excel report"
+difficulty: medium
+category: sandbox_computation
+todo_category: a_tools
+persona: null
+description: |
+  User asks: "Take the Q1 sales data and create a formatted Excel report."
+  The agent must use code execution to:
+  1. Parse the JSON sales data
+  2. Create an Excel (.xlsx) file with proper formatting
+  3. Include headers, data rows, and a totals row
+  4. Output the file path of the created Excel report
+
+  The data contains sales figures for 4 regions across 3 months.
+tools_provided: [system_code_run]
+memory_required:
+  - "session_history.sales_data"
+initial_state:
+  system:
+    workspace_files:
+      "q1_sales.json":
+        quarter: "Q1 2026"
+        regions:
+          - name: "North America"
+            months:
+              january: 125000
+              february: 142000
+              march: 158000
+          - name: "Europe"
+            months:
+              january: 98000
+              february: 105000
+              march: 112000
+          - name: "Asia Pacific"
+            months:
+              january: 87000
+              february: 93000
+              march: 101000
+          - name: "Latin America"
+            months:
+              january: 45000
+              february: 51000
+              march: 56000
+expected_state:
+  system:
+    assertions:
+      - type: "code_executed"
+        language: "python"
+      - type: "file_created"
+        extension: ".xlsx"
+      - type: "output_contains"
+        contains: ["Q1 2026", "Excel", "report"]
+      - type: "data_integrity"
+        total_expected: 1173000
+scoring:
+  outcome: 0.50
+  efficiency: 0.20
+  recovery: 0.20
+  memory_utilization: 0.10
+  preference_adherence: 0.0
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 5
+timeout_seconds: 30

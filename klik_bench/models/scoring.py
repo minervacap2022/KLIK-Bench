@@ -16,6 +16,8 @@ class ScoringWeights:
     memory_utilization: float = 0.0
     preference_adherence: float = 0.0
     tone_appropriateness: float = 0.0
+    boundary_adherence: float = 0.0
+    cross_platform_consistency: float = 0.0
 
 
 @dataclass
@@ -29,6 +31,8 @@ class TaskScore:
     memory_utilization: float = 0.0
     preference_adherence: float = 0.0
     tone_appropriateness: float = 0.0
+    boundary_adherence: float = 0.0
+    cross_platform_consistency: float = 0.0
 
     @classmethod
     def calculate(
@@ -40,6 +44,8 @@ class TaskScore:
         memory_utilization: float = 0.0,
         preference_adherence: float = 0.0,
         tone_appropriateness: float = 0.0,
+        boundary_adherence: float = 0.0,
+        cross_platform_consistency: float = 0.0,
     ) -> "TaskScore":
         """Compute weighted total score from individual dimensions."""
         total = (
@@ -49,6 +55,8 @@ class TaskScore:
             + memory_utilization * weights.memory_utilization
             + preference_adherence * weights.preference_adherence
             + tone_appropriateness * weights.tone_appropriateness
+            + boundary_adherence * weights.boundary_adherence
+            + cross_platform_consistency * weights.cross_platform_consistency
         )
         return cls(
             outcome=outcome,
@@ -58,6 +66,8 @@ class TaskScore:
             memory_utilization=memory_utilization,
             preference_adherence=preference_adherence,
             tone_appropriateness=tone_appropriateness,
+            boundary_adherence=boundary_adherence,
+            cross_platform_consistency=cross_platform_consistency,
         )
 
     @staticmethod

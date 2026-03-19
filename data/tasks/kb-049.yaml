@@ -1,0 +1,50 @@
+id: kb-049
+title: "Create a ClickUp task for the marketing deliverable"
+difficulty: easy
+category: cross_platform_sync
+todo_category: c_complex_level1
+persona: null
+description: |
+  User asks: "Create a task in ClickUp for the marketing one-pager we discussed today."
+  The agent must:
+  1. Create a ClickUp task in the Marketing workspace
+  2. Include details from the meeting context (product launch one-pager, due next Friday)
+  3. Set appropriate priority and assign to the marketing lead
+  4. Include a description referencing the meeting discussion
+
+  Tests basic ClickUp integration — a provider not covered by existing tasks.
+  No persona means the agent operates without user-specific preferences.
+tools_provided: [clickup_create_task]
+memory_required:
+  - "session_history.marketing_discussion"
+initial_state:
+  clickup:
+    workspaces:
+      WS_MKT_001:
+        name: "Marketing"
+        lists:
+          - id: "LIST_CONTENT_001"
+            name: "Content Deliverables"
+            tasks: []
+    task_create_response:
+      id: "CU-TASK-7801"
+      url: "https://app.clickup.com/t/CU-TASK-7801"
+expected_state:
+  clickup:
+    assertions:
+      - type: "task_created"
+        list: "LIST_CONTENT_001"
+        title_contains: ["marketing", "one-pager"]
+        has_description: true
+        description_contains: ["product launch"]
+        priority: "high"
+scoring:
+  outcome: 0.50
+  efficiency: 0.20
+  recovery: 0.20
+  memory_utilization: 0.10
+  preference_adherence: 0.0
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 5
+timeout_seconds: 30

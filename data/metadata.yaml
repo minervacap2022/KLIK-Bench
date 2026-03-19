@@ -1,13 +1,14 @@
 name: "KLIK-Bench"
-version: "0.1.0"
-description: "Benchmark dataset for evaluating AI meeting agents on cross-platform task execution, memory grounding, preference adherence, and tone sensitivity"
+version: "0.2.0"
+description: "Benchmark for evaluating AI meeting agents on cross-platform task execution, memory grounding, preference adherence, execution boundary recognition, and multi-step orchestration"
 created: "2026-03-12"
+updated: "2026-03-19"
 
 structure:
   personas_dir: "personas/"
   tasks_dir: "tasks/"
-  persona_count: 5
-  task_count: 20
+  persona_count: 8
+  task_count: 50
 
 persona_archetypes:
   - id: persona-001
@@ -30,12 +31,33 @@ persona_archetypes:
     archetype: "Data Scientist"
     name: "Aisha Patel"
     org: "QuantumMetrics"
+  - id: persona-006
+    archetype: "Research Scientist"
+    name: "Dr. Maya Rodriguez"
+    org: "DeepMind Research"
+  - id: persona-007
+    archetype: "Chief Medical Officer"
+    name: "Dr. Rachel Thompson"
+    org: "HealthFirst Medical Group"
+  - id: persona-008
+    archetype: "Graduate Student"
+    name: "Alex Chen"
+    org: "Stanford University"
 
 task_distribution:
-  easy: 5       # kb-001 to kb-005
-  medium: 8     # kb-006 to kb-013
-  hard: 5       # kb-014 to kb-018
+  easy: 12      # kb-001 to kb-005, kb-035 to kb-039, kb-042, kb-044
+  medium: 15    # kb-006 to kb-013, kb-033, kb-040, kb-041, kb-043, kb-046, kb-048, kb-050
+  hard: 13      # kb-014 to kb-018, kb-030, kb-031, kb-032, kb-034, kb-047
   adversarial: 2 # kb-019 to kb-020
+
+todo_categories:
+  a_tools: 4        # kb-039 to kb-042 (sandbox computation)
+  b_apis: 3         # kb-043 to kb-045 (web search, external data)
+  c_complex_level1: 22  # kb-001 to kb-018, kb-021 to kb-024 (OAuth integrations)
+  d_complex_level2: 8   # kb-025 to kb-030, kb-049, kb-050 (OAuth + memory)
+  e_complex_level3: 4   # kb-031 to kb-034 (needs confirmation)
+  f_cannotdo: 4         # kb-035 to kb-038 (should refuse)
+  todo_chain: 3         # kb-046 to kb-048 (multi-step context sharing)
 
 categories:
   - cross_platform_sync
@@ -46,6 +68,10 @@ categories:
   - multi_session
   - adversarial
   - composite
+  - execution_boundary   # NEW: tests when agent should NOT execute
+  - sandbox_computation  # NEW: code execution tasks
+  - web_research         # NEW: web search + external data
+  - todo_chain           # NEW: multi-step context sharing
 
 scoring_dimensions:
   outcome: "Did the agent achieve the intended result?"
@@ -54,3 +80,5 @@ scoring_dimensions:
   memory_utilization: "Did the agent leverage session history and user facts?"
   preference_adherence: "Did the agent respect platform and communication preferences?"
   tone_appropriateness: "Was the agent's communication tone suitable for the context?"
+  boundary_adherence: "Did the agent correctly refuse or request confirmation when needed?"
+  cross_platform_consistency: "Are entity references consistent across platforms?"

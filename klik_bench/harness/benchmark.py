@@ -14,8 +14,13 @@ from klik_bench.harness.evaluator import Evaluator
 from klik_bench.harness.runner import Runner
 from klik_bench.mock_backends.base import BaseMockBackend
 from klik_bench.mock_backends.github import GitHubMockBackend
+from klik_bench.mock_backends.google import GoogleMockBackend
+from klik_bench.mock_backends.jira import JiraMockBackend
 from klik_bench.mock_backends.linear import LinearMockBackend
+from klik_bench.mock_backends.notion import NotionMockBackend
 from klik_bench.mock_backends.slack import SlackMockBackend
+from klik_bench.mock_backends.system import SystemMockBackend
+from klik_bench.mock_backends.web_search import WebSearchMockBackend
 from klik_bench.models.scoring import TaskScore
 from klik_bench.models.task import BenchTask
 
@@ -24,6 +29,17 @@ _BACKEND_REGISTRY: dict[str, type[BaseMockBackend]] = {
     "github": GitHubMockBackend,
     "slack": SlackMockBackend,
     "linear": LinearMockBackend,
+    "google_calendar": GoogleMockBackend,
+    "google_drive": GoogleMockBackend,
+    "google": GoogleMockBackend,
+    "jira": JiraMockBackend,
+    "notion": NotionMockBackend,
+    "system": SystemMockBackend,
+    "web_search": WebSearchMockBackend,
+    "asana": None,  # placeholder — uses fictional backend
+    "teams": None,  # placeholder
+    "clickup": None,  # placeholder
+    "monday": None,  # placeholder
 }
 
 # Map tool binary names to their service name for backend routing
@@ -31,6 +47,18 @@ _TOOL_TO_SERVICE: dict[str, str] = {
     "gh": "github",
     "slack": "slack",
     "linear": "linear",
+    "jira": "jira",
+    "notion": "notion",
+    "google": "google",
+    "google_calendar": "google_calendar",
+    "google_drive": "google_drive",
+    "teams": "teams",
+    "asana": "asana",
+    "system": "system",
+    "web_search": "web_search",
+    "clickup": "clickup",
+    "monday": "monday",
+    "openweather": "web_search",
 }
 
 
@@ -115,11 +143,16 @@ class BenchmarkRunner:
 
     def _create_backends(self, task: BenchTask) -> dict[str, BaseMockBackend]:
         """Create fresh mock backends from task's initial_state."""
+        from klik_bench.mock_backends.fictional import FictionalMockBackend
+
         backends: dict[str, BaseMockBackend] = {}
         for service_name, initial_state in task.initial_state.items():
             backend_cls = _BACKEND_REGISTRY.get(service_name)
             if backend_cls is not None:
                 backends[service_name] = backend_cls(copy.deepcopy(initial_state))
+            else:
+                # Use fictional backend as fallback for unimplemented services
+                backends[service_name] = FictionalMockBackend(copy.deepcopy(initial_state))
         return backends
 
     def _map_tools_to_backends(

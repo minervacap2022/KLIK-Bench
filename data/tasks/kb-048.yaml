@@ -1,0 +1,79 @@
+id: kb-048
+title: "Update sprint status in Asana, then send summary to stakeholders on Teams"
+difficulty: medium
+category: todo_chain
+todo_category: todo_chain
+persona: persona-002
+description: |
+  James Rivera asks: "Mark the completed sprint tasks as done in Asana, then send
+  a summary of what changed to the stakeholders on Teams."
+  This is a TWO-STEP chain:
+  1. Update completed Asana tasks to "done" status
+  2. Send a Teams message summarizing which tasks were completed and what remains
+
+  The Teams message must accurately reflect the changes made in step 1.
+  The agent must use Teams (James's Microsoft-ecosystem preference), not Slack.
+tools_provided: [asana_update_task, asana_get_tasks, teams_send_message]
+memory_required:
+  - "preferences.communication"
+  - "entity_graph.projects.dashboard_redesign"
+  - "entity_graph.people.stakeholders"
+initial_state:
+  asana:
+    projects:
+      PROJ_DASH_001:
+        name: "Dashboard Redesign"
+        tasks:
+          - id: "TASK_048_A"
+            title: "Implement filter dropdowns"
+            status: "completed"
+            assignee: "maya.johnson"
+          - id: "TASK_048_B"
+            title: "Write unit tests for filter logic"
+            status: "completed"
+            assignee: "kevin.chen"
+          - id: "TASK_048_C"
+            title: "Accessibility review for new components"
+            status: "in_progress"
+            assignee: "rachel.torres"
+          - id: "TASK_048_D"
+            title: "Performance benchmarking"
+            status: "not_started"
+            assignee: "kevin.chen"
+  teams:
+    channels:
+      - id: "TEAMS_STAKE_001"
+        name: "Dashboard Stakeholders"
+        members: ["james.rivera", "product.lead", "engineering.director"]
+    messages: []
+expected_state:
+  asana:
+    assertions:
+      - type: "task_updated"
+        id: "TASK_048_A"
+        status: "done"
+      - type: "task_updated"
+        id: "TASK_048_B"
+        status: "done"
+      - type: "task_not_updated"
+        id: "TASK_048_C"
+        comment: "In-progress task should not be marked done"
+  teams:
+    assertions:
+      - type: "message_sent"
+        channel: "TEAMS_STAKE_001"
+        contains: ["filter dropdowns", "unit tests", "completed"]
+        contains: ["Accessibility review", "in_progress"]
+        platform: "teams"
+        not_platform: "slack"
+scoring:
+  outcome: 0.40
+  efficiency: 0.15
+  recovery: 0.0
+  memory_utilization: 0.20
+  preference_adherence: 0.15
+  tone_appropriateness: 0.0
+  cross_platform_consistency: 0.10
+  boundary_adherence: 0.0
+max_turns: 8
+timeout_seconds: 45

@@ -1,0 +1,63 @@
+id: kb-046
+title: "Create Linear issue for auth migration, then notify team on Slack"
+difficulty: medium
+category: todo_chain
+todo_category: todo_chain
+persona: persona-001
+description: |
+  Sarah asks: "Create a Linear issue for the auth migration work and let the team know on Slack."
+  This is a TWO-STEP chain that tests SessionContext / discovered_context:
+  1. Create a Linear issue for auth service migration to OAuth2
+  2. Post a Slack message to the engineering channel with the issue URL from step 1
+
+  The critical test: the Slack message MUST contain the Linear issue URL that was
+  returned from step 1. The agent must pass context (issue ID/URL) from the first
+  tool call into the second. An agent that sends a Slack message without the
+  issue link loses cross_platform_consistency points.
+tools_provided: [linear_issue_create, slack_send_message]
+memory_required:
+  - "entity_graph.projects.platform_migration"
+  - "entity_graph.projects.platform_migration.tools.linear"
+  - "preferences.communication"
+initial_state:
+  linear:
+    teams:
+      TEAM_ENG_001:
+        name: "Engineering"
+        projects:
+          PROJ_PLAT_001:
+            name: "Platform Migration"
+            issues: []
+    issue_create_response:
+      id: "LIN-501"
+      url: "https://linear.app/klik/issue/LIN-501"
+  slack:
+    channels:
+      - id: "C_ENG_001"
+        name: "engineering"
+        members: ["U_SARAHC_001", "U_JORDANL_003", "U_ALEXKIM_001"]
+    messages: []
+expected_state:
+  linear:
+    assertions:
+      - type: "issue_created"
+        project: "PROJ_PLAT_001"
+        title_contains: ["auth", "migration", "OAuth2"]
+        has_description: true
+  slack:
+    assertions:
+      - type: "message_sent"
+        channel: "C_ENG_001"
+        contains: ["LIN-501", "auth", "migration"]
+        contains_url: "https://linear.app/klik/issue/LIN-501"
+scoring:
+  outcome: 0.40
+  efficiency: 0.15
+  recovery: 0.0
+  memory_utilization: 0.20
+  preference_adherence: 0.15
+  tone_appropriateness: 0.0
+  cross_platform_consistency: 0.10
+  boundary_adherence: 0.0
+max_turns: 8
+timeout_seconds: 45

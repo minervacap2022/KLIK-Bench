@@ -7,11 +7,16 @@ from typing import Any
 
 
 # Maps preference categories to known tool binary names
+# Aligned with KK_exec tools.yaml sub_categories
 _TOOL_DOMAIN_MAP: dict[str, list[str]] = {
-    "task_management": ["linear", "jira", "clickup", "asana", "monday"],
-    "documentation": ["notion", "google_docs", "confluence"],
-    "communication": ["slack", "teams", "email"],
-    "file_storage": ["google_drive", "onedrive", "dropbox"],
+    "task_management": ["linear", "jira", "clickup", "asana", "monday", "atlassian"],
+    "documentation": ["notion", "google_docs", "confluence", "google"],
+    "communication": ["slack", "teams", "email", "microsoft"],
+    "file_storage": ["google_drive", "onedrive", "dropbox", "google", "microsoft"],
+    "calendar": ["google_calendar", "google", "microsoft"],
+    "email": ["gmail", "outlook", "google", "microsoft"],
+    "code": ["github", "gh"],
+    "web_search": ["web_search", "jina", "duckduckgo"],
 }
 
 

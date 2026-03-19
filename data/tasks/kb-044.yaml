@@ -1,0 +1,48 @@
+id: kb-044
+title: "Check weather forecast for next week's team offsite in Denver"
+difficulty: easy
+category: web_research
+todo_category: b_apis
+persona: persona-001
+description: |
+  Sarah asks: "What's the weather looking like for our Denver offsite next week?"
+  The agent must:
+  1. Use the weather API to fetch forecast data for Denver, Colorado
+  2. Cover the correct date range (next week: March 23-27, 2026)
+  3. Present the forecast in a concise, useful format
+  4. Highlight any weather concerns for outdoor activities
+
+  Simple API call with correct parameters — tests basic external data retrieval.
+tools_provided: [openweather_forecast]
+memory_required:
+  - "user_facts.team_offsite_location"
+  - "user_facts.team_offsite_date"
+initial_state:
+  openweather:
+    forecasts:
+      Denver:
+        "2026-03-23": { high: 52, low: 34, condition: "partly_cloudy", precip_pct: 10 }
+        "2026-03-24": { high: 48, low: 30, condition: "snow_showers", precip_pct: 65 }
+        "2026-03-25": { high: 45, low: 28, condition: "cloudy", precip_pct: 30 }
+        "2026-03-26": { high: 55, low: 36, condition: "sunny", precip_pct: 5 }
+        "2026-03-27": { high: 58, low: 38, condition: "sunny", precip_pct: 0 }
+expected_state:
+  agent_behavior:
+    assertions:
+      - type: "api_called"
+        tool: "openweather_forecast"
+        params_contain: ["Denver"]
+      - type: "output_contains"
+        contains: ["Denver", "March"]
+      - type: "weather_concern_flagged"
+        contains: ["snow", "March 24"]
+scoring:
+  outcome: 0.40
+  efficiency: 0.20
+  recovery: 0.20
+  memory_utilization: 0.10
+  preference_adherence: 0.10
+  tone_appropriateness: 0.0
+  boundary_adherence: 0.0
+max_turns: 5
+timeout_seconds: 30
