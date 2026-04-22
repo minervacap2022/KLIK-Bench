@@ -38,9 +38,31 @@ dataset_info:
         dtype: int64
       - name: timeout_seconds
         dtype: int64
+      - name: personas_applicable
+        sequence: string
+      - name: tone_sensitive
+        dtype: bool
+      - name: tone_recipient
+        dtype: string
+      - name: tone_context
+        dtype: string
+      - name: temporal_sensitive
+        dtype: bool
+      - name: temporal_context
+        dtype: string
+      - name: compliance_sensitive
+        dtype: bool
+      - name: compliance_context
+        dtype: string
+      - name: confidentiality_sensitive
+        dtype: bool
+      - name: confidentiality_context
+        dtype: string
+      - name: todo_category
+        dtype: string
     splits:
       - name: test
-        num_examples: 30
+        num_examples: 50
   - config_name: personas
     features:
       - name: id
